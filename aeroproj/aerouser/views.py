@@ -2,19 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from .models import userdata
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.conf import settings
 from django.core.mail import send_mail
 import uuid, time, pyotp
-
-def login(request):
-
-    template = loader.get_template('login.html')
-    context = {
-    'udatas': template,
-    }
-    return HttpResponse(template.render(context, request))
-
 
 def gen_uid():
     otp = pyotp.TOTP('base32secret3232')
@@ -72,7 +63,9 @@ def otp(request):
                 stored_otp = user_data.otp
                 
                 if entered_otp == str(stored_otp):
+
                     return HttpResponse("OTP verified successfully")
+                
                 else:
                     return render(request,"otp.html")
                 
@@ -83,3 +76,31 @@ def otp(request):
 
     else:
         return render(request, "otp.html", {'error_message': error_message}) 
+
+
+
+def login(request):
+    error_message = None 
+    if request.method == 'POST':
+        field1_data = request.POST.get('email')   
+        field2_data = request.POST.get('password')
+        
+        if not userdata.objects.filter(email__iexact=field1_data).exists():
+            error_message = "Email dosen't exists in the database."
+            print("email no exsist")
+            return render(request, "login.html", {'error_message': error_message})
+            
+        else:  
+            user = userdata.objects.get(email=field1_data)
+            stored_password = user.password
+
+            if not check_password(field2_data,stored_password):
+                error_message = "wrong password"
+                return render(request, "login.html", {'error_message': error_message})
+            else:
+                return render(request,"landing/landing.html")
+    else:
+        return render(request, "login.html", {'error_message': error_message})
+    
+
+    
