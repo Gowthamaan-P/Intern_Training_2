@@ -5,23 +5,28 @@ from .models import userdata
 from django.contrib.auth.hashers import make_password
 from django.conf import settings
 from django.core.mail import send_mail
-import uuid
+import uuid, time, pyotp
 
 def login(request):
-    #template = userdata.objects.all().values()
+
     template = loader.get_template('login.html')
     context = {
     'udatas': template,
     }
     return HttpResponse(template.render(context, request))
 
+
+def gen_uid():
+    otp = pyotp.TOTP('base32secret3232')
+    return otp.now()
+
 def signup(request):
     error_message = None 
     if request.method == 'POST':
         
-        u_id = uuid.uuid4().hex
+        #u_id = uuid.uuid4().hex
+        u_id = gen_uid()
 
-        # Assuming you receive data through a POST request
         field1_data = request.POST.get('username')  
         field2_data = request.POST.get('email')   
         field3_data = request.POST.get('password')
