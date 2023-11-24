@@ -63,10 +63,15 @@ form {
 .checkbox-container {
     display: flex;
     align-items: flex-start;
+    margin-right: 6px;
 }
-
+.checkbox-container label:nth-child(2) {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 20px;
+}
 .checkbox-container label {
-    margin-left: -80px; /* Adjust as needed for spacing between checkbox and label */
+    margin-left: 5px; /* Adjust as needed for spacing between checkbox and label */
     white-space: nowrap;
 }
 
