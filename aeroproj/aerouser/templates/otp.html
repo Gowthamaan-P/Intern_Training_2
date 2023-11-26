@@ -1,57 +1,27 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OTP Authentication</title>
-    <link rel="stylesheet" href="{%static 'css/styles.css'%}">
+    <link rel="stylesheet" href="../static/css/styles.css">
     <!-- Add Google Translate Material Icon -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-    <style>
-        body {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .left-container, .right-container {
-            padding: 20px 60px;
-            text-align: left;
-            flex: 1;
-        }
-
-        .right-container {
-            text-align: center;
-        }
-
-        .input-container {
-            margin-bottom: 20px;
-        }
-
-        .otp-input {
-            width: 80%; /* Adjust as needed */
-            padding: -30px;
-            margin: 2px 0;
-            text-align: center;
-            display: inline-block;
-        }
-
-        .input-container button {
-            padding: 10px;
-        }
-    </style> 
 </head>
 <body>
     <div class="left-container">
         <p style="color:#007BFF">Aerobiosys<br>Innovations</p>
     </div>
+    
 
     <div class="right-container">
         <div class="login-container">
+            {% for msg in messages %}
+                
+            {{ msg }}
+        
+            {% endfor %}
             <div class="login-box">
                 <h2>OTP Authentication</h2>
                 <form action="" method="POST">
