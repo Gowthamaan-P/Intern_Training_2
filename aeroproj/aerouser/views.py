@@ -112,37 +112,39 @@ def login(request):
                 return render(request,"landing.html")
     else:
         return render(request, "login.html", {'error_message': error_message})
-    
-def forgot_otp(request,user_email):
 
+def forgot_otp(request):
+    user_email = request.session.get('email')
     user_otp = request.session.get('otp')
-    user_new_pwd = request.session.get('password')
     error_message = None 
-    
+    print(user_otp)
     if request.method == 'POST':
 
+        new_password = request.POST.get('password')
         entered_otp = request.POST.get('otp')
-
         if user_email:
             try:
                 
                 if entered_otp == user_otp:
+                    print("checksuccess1")
+                    hashed_password = make_password(new_password)
                     t = userdata.objects.get(email=user_email)
-                    t.value = user_new_pwd
+                    t.password = hashed_password
                     t.save()
-                    login(request)
-                
+                    print("checksuccess2")
+                    return redirect("login")
+
                 else:
                     messages.success(request, "Incorrect OTP")
-                    return render(request,"otp.html")
+                    return render(request,"forgototp.html")
                 
             except userdata.DoesNotExist:
                 error_message = "User not found or email not available."
         else:
             error_message = "User email not available in session."
-
     else:
         return render(request, "forgototp.html", {'error_message': error_message}) 
+
 
 def forgot(request):
     error_message = None 
@@ -164,9 +166,11 @@ def forgot(request):
             message = f'Hi {field1_data}.This is your One Time Password : {u_id}'
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [field1_data]
-            send_mail( subject, message, email_from, recipient_list )  
+            send_mail( subject, message, email_from, recipient_list )
 
-            forgot_otp(request)
+            request.session['otp'] = u_id
+            request.session['email'] = field1_data
+            return redirect('forgot_otp')
         
     else:
         return render(request, "forgot.html", {'error_message': error_message})
