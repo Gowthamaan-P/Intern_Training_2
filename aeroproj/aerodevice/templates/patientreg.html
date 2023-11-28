@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Registration</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Patient Registration</h2>
+            <form action="" method="POST">
+
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" value="{{ email }}" id="id" name="doctorid" required>
+                    <label for="id">Doctor Id</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="patientid" required>
+                    <label for="id">patient Id</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="patient_name" required>
+                    <label for="id">patient Name</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="patient_age" required>
+                    <label for="id">patient Age</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="patient_gender" required>
+                    <label for="id">patient Gender</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="contact" required>
+                    <label for="id">patient Contact</label>
+                </div>
+                <div class="input-container1">
+                    {% csrf_token %}
+                    Emergency Status:
+                    <span><input type="radio" id="id1" name="emergency" value="True" required></span>
+                    <span><label for="id1">Yes</label></span>
+                    <span><input type="radio" id="id2" name="emergency" value="True" required></span>
+                    <span><label for="id2">No</label></span>
+                </div>
+
+                <button type="submit" style="margin-top: 20px;">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

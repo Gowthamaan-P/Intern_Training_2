@@ -109,7 +109,8 @@ def login(request):
                 
                 return render(request, "login.html", {'error_message1': error_message1},)
             else:
-                return render(request,"landing.html")
+                display_mail = field1_data
+                return render(request,"landing.html", {'doctor_email': display_mail})
     else:
         return render(request, "login.html", {'error_message': error_message})
 

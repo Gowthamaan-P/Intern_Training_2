@@ -99,10 +99,9 @@
     cursor: pointer;
     font-size: 16px;
     display: flex;
-    align-items: center; /* Align items vertically in the center */
-    justify-content: center; /* Align content horizontally in the center */
+    flex-direction: row;
     width: 100px;
-    height: 50px;
+    height: auto;
     transition: background-color 0.3s;
 }
 
@@ -126,20 +125,6 @@ button:hover {
 a{
     text-decoration: none;
 }
-.custom-button {
-            width: 100px;
-            height: 50px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-            align-items: center;
-            align-content: center;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -151,17 +136,11 @@ a{
 
     <div class="header">Active User: {{ doctor_email }}</div>
 
-    <div class="container">
-        <div class="box1">
-            <div class="content2">
-                <a href="http://127.0.0.1:8000/devices" target="_blank"><button class="custom-button" value="text" type="submit">Show Devices</button></a>
-                <a href="http://127.0.0.1:8000/usercheck" target="_blank"><button class="custom-button" value="text" type="submit">Add Devices</button></a>
-                <a href="http://127.0.0.1:8000/patients" target="_blank"><button class="custom-button" value="text" type="submit">Show Patients</button></a>
-                <a href="http://127.0.0.1:8000/patientcheck" target="_blank"><button class="custom-button" value="text" type="submit">Add Patients</button></a>
-                <a href="http://127.0.0.1:8000/login" target="_self"><button class="custom-button" value="text" type="submit">Logout</button></a>
-            </div>
-        </div>
-    </div>
+{ for msg in messages }
+
+    {{ msg }}
+
+{ endfor }
 
 </body>
 </html>
