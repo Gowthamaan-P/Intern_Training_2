@@ -86,11 +86,12 @@ def otp(request):
 
 
 def login(request):
+ 
     error_message = None 
     if request.method == 'POST':
         field1_data = request.POST.get('email')   
         field2_data = request.POST.get('password')
-        
+        request.session['doctor_email'] = field1_data
         if not userdata.objects.filter(email__iexact=field1_data).exists():
             error_message1 = "Incorrect Email!"
             print("email no exsist")
@@ -175,3 +176,4 @@ def forgot(request):
         
     else:
         return render(request, "forgot.html", {'error_message': error_message})
+    

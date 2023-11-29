@@ -94,13 +94,18 @@ def patientcheck(request):
         return render(request, "usercheck.html", {'error_message': error_message})
 
 def devices(request):
-    email_data = request.session.get('email')
+    email_data = request.session.get('doctor_email')
+
+    devices_data = devicedata.objects.filter(userid=email_data).values()
+
+    for i in devices_data:
+        messages.success(request, i)
+
+    return render(request, "devices.html", {'doctor_email': email_data },)
+
+def patients(request):
+    email_data = request.session.get('doctor_email')
 
     objects = devicedata.objects.filter(userid=email_data).values()
 
-    #return render(request, "usercheck.html", {'': error_message})
-    return HttpResponse(email_data)
-
-def patients(request):
-    email_data = request.session.get('email')   
-    return HttpResponse(email_data)
+    return render(request, "devices.html", {'doctor_email': objects })
