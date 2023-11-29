@@ -11,7 +11,21 @@
             font-family: "Helvetica Neue", sans-serif;
             background: #E2E2E2;
         }
+        button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 150px;
+    transition: background-color 0.3s;
+}
 
+button:hover {
+    background-color: #0056b3;
+}
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -22,7 +36,7 @@
 
         .box {
             width: 400px;
-            height: 700px;
+            height: 500px;
             margin: 20px;
             background: white;
             border-radius: 20px;
@@ -47,7 +61,14 @@
             padding: 20px;
             text-align: center;
         }
-
+        .content2{
+            padding: 20px;
+            margin-top: 25px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+        }
         .title {
             font-size: 40px;
             font-weight: 700;
@@ -103,33 +124,18 @@
         <span style="color: #007BFF;">Aerobiosys Innovations</span>
     </div>
 
-    <div class="header">Our Devices</div>
+    <div class="header">CurrentUser: {{ error_message }}</div>
 
     <div class="container">
         <div class="box">
             <div class="content">
-                <div class="title">Duo Vent</div>
-                <div class="subtitle">Intelligent Double Lung Ventilator</div>
-                <img class="product_1_img" src="{% static 'images/product_1.png' %}" alt="Duo Vent Image">
-                <div class="read-more"><a href="https://www.aerobiosys.com">Read More >></a></div>
-            </div>
+            <div class="title">Facilities</div>
         </div>
-
-        <div class="box">
-            <div class="content" style="background-color: #000;">
-                <div class="title" style="color: #fff;">Jeevan Lite</div>
-                <div class="subtitle">Affordable Smart Ventilator</div>
-                <img src="{% static 'images/product_2.png' %}" alt="Jeevan Lite Image">
-                <div class="read-more"><a href="https://www.aerobiosys.com"  style="color: #fff;">Read More >></a></div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="content">
-                <div class="title">J Fit</div>
-                <div class="subtitle">Smart SpO2 Tracker</div>
-                <img src="{% static 'images/product_3.png' %}" alt="J Fit Image">
-                <div class="read-more"><a href="https://www.aerobiosys.com">Read More >></a></div>
+            <div class="content2">
+                <a href="http://127.0.0.1:8000/device_reg2" class="add-device" style="text-decoration: none;"><button> Add Device</button></a>
+                <a href="http://127.0.0.1:8000/patient" class="add-patient" style="text-decoration: none;"><button> Add Patient</button></a>
+                <a href="http://127.0.0.1:8000/device_list" class="view-device" style="text-decoration: none;"><button>  View Devices</button></a>
+                <a href="http://127.0.0.1:8000/patient_list" class="view-patient" style="text-decoration: none;"><button> View Patients</button></a>
             </div>
         </div>
     </div>

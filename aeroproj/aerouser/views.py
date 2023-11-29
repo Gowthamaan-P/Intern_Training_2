@@ -24,12 +24,13 @@ def login(request):
         else:  
             user = userdata.objects.get(email=field1_data)
             stored_password = user.password
+            name1=user.username
           
             if not check_password(field2_data,stored_password):
               error_message = "Wrong password"
               return render(request, "login.html", {'error_message': error_message})
             else:
-             return render(request, "landing.html")
+             return render(request, "landing.html",{'error_message': name1})
      else:
         return render(request, "login.html")
 
