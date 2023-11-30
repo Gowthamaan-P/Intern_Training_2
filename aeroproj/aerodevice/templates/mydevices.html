@@ -99,10 +99,9 @@
     cursor: pointer;
     font-size: 16px;
     display: flex;
-    align-items: center; /* Align items vertically in the center */
-    justify-content: center; /* Align content horizontally in the center */
+    flex-direction: row;
     width: 100px;
-    height: 50px;
+    height: auto;
     transition: background-color 0.3s;
 }
 
@@ -126,20 +125,21 @@ button:hover {
 a{
     text-decoration: none;
 }
-.custom-button {
-            width: 100px;
-            height: 50px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-            align-items: center;
-            align-content: center;
-            text-align: center;
-        }
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
     </style>
 </head>
 <body>
@@ -150,18 +150,41 @@ a{
     </div>
 
     <div class="header">Active User: {{ doctor_email }}</div>
+    <h3>All Devices</h3>
 
-    <div class="container">
-        <div class="box1">
-            <div class="content2">
-                <a href="http://127.0.0.1:8000/alldevices" target="_blank"><button class="custom-button" value="text" type="submit">Show All Devices</button></a>
-                <a href="http://127.0.0.1:8000/usercheck" target="_blank"><button class="custom-button" value="text" type="submit">Show My Devices</button></a>
-                <a href="http://127.0.0.1:8000/patients" target="_blank"><button class="custom-button" value="text" type="submit">Show Patients</button></a>
-                <a href="http://127.0.0.1:8000/patientcheck" target="_blank"><button class="custom-button" value="text" type="submit">Add Patients</button></a>
-                <a href="http://127.0.0.1:8000/logout" target="_self"><button class="custom-button" value="text" type="submit">Logout</button></a>
-            </div>
-        </div>
-    </div>
 
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Device Name</th>
+                <th>Model</th>
+                <th>Serial Number</th>
+                <th>Status</th>
+                <th>Location</th>
+                <th>Assigned User ID</th>
+                <th>Assign Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in messages %}
+                <tr>
+                    <td>{{ device.id }}</td>
+                    <td>{{ device.device_name }}</td>
+                    <td>{{ device.model }}</td>
+                    <td>{{ device.serial_number }}</td>
+                    <td>{{ device.status }}</td>
+                    <td>{{ device.location }}</td>
+                    <td>{{ device.assignuser_id }}</td>
+                    
+                        {% if device.assignuser_id %}
+                        <td>Assigned to: {{ device.assign_status }}</td>
+                        {% else %}
+                        <td><button class="custom-button" value="text" type="submit">Assign Me</button></td>
+                        {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

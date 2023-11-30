@@ -125,6 +125,21 @@ button:hover {
 a{
     text-decoration: none;
 }
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
     </style>
 </head>
 <body>
@@ -135,12 +150,41 @@ a{
     </div>
 
     <div class="header">Active User: {{ doctor_email }}</div>
+    <h3>All Devices</h3>
 
-{ for msg in messages }
 
-    <p>{{ msg }}</p>
-
-{ endfor }
-
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Device Name</th>
+                <th>Model</th>
+                <th>Serial Number</th>
+                <th>Status</th>
+                <th>Location</th>
+                <th>Assigned User ID</th>
+                <th>Assign Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in messages %}
+                <tr>
+                    <td>{{ device.id }}</td>
+                    <td>{{ device.device_name }}</td>
+                    <td>{{ device.model }}</td>
+                    <td>{{ device.serial_number }}</td>
+                    <td>{{ device.status }}</td>
+                    <td>{{ device.location }}</td>
+                    <td>{{ device.assignuser_id }}</td>
+                    
+                        {% if device.assignuser_id %}
+                        <td>Assigned to: {{ device.assign_status }}</td>
+                        {% else %}
+                        <td><button class="custom-button" value="text" type="submit">Assign Me</button></td>
+                        {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

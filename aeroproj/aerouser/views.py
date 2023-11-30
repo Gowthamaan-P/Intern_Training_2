@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from .models import userdata
+from aerodevice.models import usermapping, devicedata
 from django.contrib.auth.hashers import make_password, check_password
 from django.conf import settings
 from django.core.mail import send_mail
 import uuid, time, pyotp
 from django.contrib import messages
+from django.utils import timezone
 
 
 def gen_uid():
@@ -22,7 +24,7 @@ def signup(request):
         field1_data = request.POST.get('username')  
         field2_data = request.POST.get('email')   
         field3_data = request.POST.get('password')
-       
+
         if userdata.objects.filter(email=field2_data).exists():
         
             error_message = "Email already exists in the database."
@@ -86,11 +88,13 @@ def otp(request):
 
 
 def login(request):
- 
+    #print(timezone.now())
     error_message = None 
     if request.method == 'POST':
         field1_data = request.POST.get('email')   
         field2_data = request.POST.get('password')
+        field3_data = request.POST.get('sno')
+
         request.session['doctor_email'] = field1_data
         if not userdata.objects.filter(email__iexact=field1_data).exists():
             error_message1 = "Incorrect Email!"
@@ -111,9 +115,43 @@ def login(request):
                 return render(request, "login.html", {'error_message1': error_message1},)
             else:
                 display_mail = field1_data
+
+                user_temp = userdata.objects.get(email=display_mail)
+                device_temp = devicedata.objects.get(serial_number=field3_data)
+                
+                log_time = timezone.now()
+                print(field1_data)
+
+                new_entry = usermapping(user=user_temp, device=device_temp, login_time=log_time)
+                new_entry.save()
+
+                print(log_time)
+                
+                request.session['userlog'] = field1_data
+                request.session['devicelog'] = field3_data
                 return render(request,"landing.html", {'doctor_email': display_mail})
     else:
         return render(request, "login.html", {'error_message': error_message})
+
+def logout(request):
+    log_user = request.session.get('userlog')
+    log_device = request.session.get('devicelog')
+
+    user_temp = userdata.objects.get(email=log_user)
+    device_temp = devicedata.objects.get(serial_number=log_device)
+    
+    temp = usermapping.objects.filter(user=user_temp, device=device_temp, status=True).first()
+
+    if temp:
+
+        temp.logout_time = timezone.now()
+        temp.status = False
+        temp.save()
+
+    temp.logout_time = timezone.now()
+    print(temp)
+    return redirect('login')
+
 
 def forgot_otp(request):
     user_email = request.session.get('email')

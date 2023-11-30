@@ -12,23 +12,24 @@ from django.contrib import messages
 
 def devicereg(request):
 
-    email_data = request.session.get('email')
+    #email_data = request.session.get('email')
     error_message = None 
     
     if request.method == 'POST':
 
+        d_name = request.POST.get('device_name')
         serial_data = request.POST.get('serial_number')  
         model_data = request.POST.get('model')
         location_data = request.POST.get('location')
         status_data = "Idle"
 
-        new_entry = devicedata(userid=email_data, model=model_data, 
+        new_entry = devicedata(device_name=d_name, model=model_data, 
                             serial_number=serial_data, status=status_data, location=location_data)
         new_entry.save()
         return redirect("login")
         
     else:
-        return render(request, "devicereg.html", {'email': email_data}) 
+        return render(request, "devicereg.html",) 
 
 
 def usercheck(request):
@@ -46,7 +47,8 @@ def usercheck(request):
             
         else:  
             request.session['email'] = email_data
-            return redirect("devicereg")
+            return redirect("mydevices")
+
     else:
         return render(request, "usercheck.html", {'error_message': error_message})
     
@@ -93,19 +95,42 @@ def patientcheck(request):
     else:
         return render(request, "usercheck.html", {'error_message': error_message})
 
-def devices(request):
-    email_data = request.session.get('doctor_email')
+def mydevices(request):
+    email_data = request.session.get('email')
 
-    devices_data = devicedata.objects.filter(userid=email_data).values()
+    user_instance = userdata.objects.get(email=email_data)
+    devices_data = devicedata.objects.filter(assignuser=user_instance).values()
+    
 
-    for i in devices_data:
-        messages.success(request, i)
 
-    return render(request, "devices.html", {'doctor_email': email_data },)
+    return render(request, "mydevices.html", {'doctor_email': email_data },)
 
 def patients(request):
     email_data = request.session.get('doctor_email')
 
-    objects = devicedata.objects.filter(userid=email_data).values()
+    objects = devicedata.objects.filter(assignuser=email_data).values()
 
-    return render(request, "devices.html", {'doctor_email': objects })
+    return render(request, "mydevices.html", {'doctor_email': objects })
+
+
+def alldevices(request):
+    email_data = request.session.get('doctor_email')
+
+    mes = []
+    assign_status = "Assign Me"
+    devices_data = devicedata.objects.values()
+    for i in devices_data:
+        if i['assignuser_id'] != None:
+            temp = userdata.objects.filter(id=i['assignuser_id']).values()
+            assign_status = [j['email'] for j in temp]
+            i['assign_status'] = assign_status[0]
+        mes.append(i)
+
+    #print(mes)
+
+    context = {
+        'messages': mes,
+        'doctor_email': email_data,
+    }
+
+    return render(request, "alldevices.html", context)

@@ -26,6 +26,11 @@
                     <input type="password" id="password" name="password" required>
                     <label for="password">Password</label>
                 </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="sno" required>
+                    <label for="id">Serial No</label>
+                </div>
                 <button type="submit">Login</button>
             </form>
             <p>Don't have an account? <a href="signup">Sign up here</a></p>

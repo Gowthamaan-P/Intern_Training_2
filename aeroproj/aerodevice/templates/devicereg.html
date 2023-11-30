@@ -15,8 +15,8 @@
 
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" value="{{ email }}" id="id" name="userid" required>
-                    <label for="id">Doctor Id</label>
+                    <input type="text" id="id" name="device_name" required>
+                    <label for="id">Device Name </label>
                 </div>
                 
                 <div class="input-container">
@@ -27,17 +27,20 @@
 
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="model" required>
-                    <label for="id">Model </label>
-                </div>
-                
-                <div class="input-container">
-                    {% csrf_token %}
                     <input type="text" id="id" name="location" required>
                     <label for="id">Location </label>
                 </div>
 
-                <button type="submit">Submit</button>
+                <div class="input-container1">
+                    {% csrf_token %}
+                    Device Model :
+                    <span><input type="radio" id="id1" name="model" value="jeevan_lite" required></span>
+                    <span><label for="id1">Jeevan Lite</label></span>
+                    <span><input type="radio" id="id2" name="model" value="duo_vent" required></span>
+                    <span><label for="id2">Duo Vent</label></span>
+                </div>
+
+                <button type="submit" style="margin-top: 20px;">Submit</button>
             </form>
         </div>
     </div>
