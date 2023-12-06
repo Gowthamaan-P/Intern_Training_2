@@ -86,7 +86,6 @@ def otp(request):
         return render(request, "otp.html", {'error_message': error_message}) 
 
 
-
 def login(request):
     #print(timezone.now())
     error_message = None 
@@ -117,8 +116,13 @@ def login(request):
                 display_mail = field1_data
 
                 user_temp = userdata.objects.get(email=display_mail)
-                device_temp = devicedata.objects.get(serial_number=field3_data)
-                
+                try: 
+                    device_temp = devicedata.objects.get(serial_number=field3_data)
+                except Exception as e:
+                    error_message1 = "Incorrect Serial Number!"
+                    messages.success(request, "forgot")
+                    
+                    return render(request, "login.html", {'error_message1': error_message1},)
                 log_time = timezone.now()
                 print(field1_data)
 

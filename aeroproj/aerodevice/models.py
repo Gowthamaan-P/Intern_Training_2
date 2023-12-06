@@ -27,6 +27,6 @@ class usermapping(models.Model):
     login_time = models.DateTimeField(null=True, blank=True)
     logout_time = models.DateTimeField(null=True, blank=True)
     status = models.BooleanField(default=True)
-    
+
 
 

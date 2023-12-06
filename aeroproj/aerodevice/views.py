@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .models import devicedata, patientdata
+from .models import devicedata, patientdata, usermapping
 from aerouser.models import userdata
 #from aerodevice.views import login
 from django.contrib.auth.hashers import make_password, check_password
@@ -96,14 +96,30 @@ def patientcheck(request):
         return render(request, "usercheck.html", {'error_message': error_message})
 
 def mydevices(request):
-    email_data = request.session.get('email')
-
-    user_instance = userdata.objects.get(email=email_data)
-    devices_data = devicedata.objects.filter(assignuser=user_instance).values()
+    email_data = request.session.get('doctor_email')
+    sno_data = request.session.get('devicelog')
+    devices_data = devicedata.objects.values()
+    user_data = usermapping.objects.values()
+    #print(sno_data)
     
+    sno_id = devicedata.objects.filter(serial_number=sno_data).values("id")
+    current_device_id = sno_id[0]['id']
+    #print(current_device_id)
+    
+    temp = usermapping.objects.filter(device=current_device_id).values()
+    #print(temp)
 
-
-    return render(request, "mydevices.html", {'doctor_email': email_data },)
+    mes = []
+    for i in temp:
+        #print(i)
+        mes.append(i)
+    
+    context = {
+        'messages': mes,
+        'doctor_email': email_data,
+    }
+    
+    return render(request, "mydevices.html",context)
 
 def patients(request):
     email_data = request.session.get('doctor_email')
