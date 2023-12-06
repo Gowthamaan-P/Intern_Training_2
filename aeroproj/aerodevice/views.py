@@ -100,18 +100,14 @@ def mydevices(request):
     sno_data = request.session.get('devicelog')
     devices_data = devicedata.objects.values()
     user_data = usermapping.objects.values()
-    #print(sno_data)
     
-    sno_id = devicedata.objects.filter(serial_number=sno_data).values("id")
-    current_device_id = sno_id[0]['id']
-    #print(current_device_id)
+    current_user_id = userdata.objects.filter(email=email_data).values()
     
-    temp = usermapping.objects.filter(device=current_device_id).values()
-    #print(temp)
+    temp = usermapping.objects.filter(user=current_user_id[0]['id']).values()
 
     mes = []
+    #print(current_user_id[0]["id"])
     for i in temp:
-        #print(i)
         mes.append(i)
     
     context = {

@@ -127,8 +127,12 @@ def login(request):
                 print(field1_data)
 
                 new_entry = usermapping(user=user_temp, device=device_temp, login_time=log_time)
+                temp = usermapping.objects.filter(status=True).values().first()
+                print('.............................................................')
+                print(temp)
                 new_entry.save()
 
+                    
                 print(log_time)
                 
                 request.session['userlog'] = field1_data
@@ -138,6 +142,7 @@ def login(request):
         return render(request, "login.html", {'error_message': error_message})
 
 def logout(request):
+
     log_user = request.session.get('userlog')
     log_device = request.session.get('devicelog')
 
@@ -145,15 +150,17 @@ def logout(request):
     device_temp = devicedata.objects.get(serial_number=log_device)
     
     temp = usermapping.objects.filter(user=user_temp, device=device_temp, status=True).first()
-
+    temp = usermapping.objects.filter(status=True).first()
+    print(temp)
     if temp:
 
         temp.logout_time = timezone.now()
         temp.status = False
         temp.save()
 
-    temp.logout_time = timezone.now()
-    print(temp)
+    if temp:
+        temp.logout_time = timezone.now()
+        print(temp)
     return redirect('login')
 
 
