@@ -21,4 +21,6 @@ urlpatterns = [
     path("", include("aerouser.urls")),
     path("admin/", admin.site.urls),
     path("", include("aerodevice.urls")),
+    path("", include('api.urls'))
+
 ]
