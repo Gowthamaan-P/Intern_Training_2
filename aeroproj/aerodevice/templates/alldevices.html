@@ -178,9 +178,9 @@ tr:nth-child(even) {
                     <td>{{ device.assignuser_id }}</td>
                     
                         {% if device.assignuser_id %}
-                        <td>Assigned to: {{ device.assign_status }}</td>
+                        <td><strong>Assigned to:</strong> {{ device.assign_status }}</td>
                         {% else %}
-                        <td><button class="custom-button" value="text" type="submit">Assign Me</button></td>
+                        <td>Not Assigned Yet</td>
                         {% endif %}
                 </tr>
             {% endfor %}

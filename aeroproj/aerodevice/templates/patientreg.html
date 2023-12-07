@@ -20,39 +20,45 @@
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="patientid" required>
-                    <label for="id">patient Id</label>
+                    <input type="text" value="{{ patient_id }}" id="id" name="patientid" required>
+                    <label for="id">Patient Id</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
                     <input type="text" id="id" name="patient_name" required>
-                    <label for="id">patient Name</label>
+                    <label for="id">Patient Name</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
                     <input type="text" id="id" name="patient_age" required>
-                    <label for="id">patient Age</label>
+                    <label for="id">Patient Age</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
                     <input type="text" id="id" name="patient_gender" required>
-                    <label for="id">patient Gender</label>
+                    <label for="id">Patient Gender</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
                     <input type="text" id="id" name="contact" required>
-                    <label for="id">patient Contact</label>
+                    <label for="id">Patient Contact</label>
                 </div>
                 <div class="input-container1">
                     {% csrf_token %}
                     Emergency Status:
                     <span><input type="radio" id="id1" name="emergency" value="True" required></span>
                     <span><label for="id1">Yes</label></span>
-                    <span><input type="radio" id="id2" name="emergency" value="True" required></span>
+                    <span><input type="radio" id="id2" name="emergency" value="False" required></span>
                     <span><label for="id2">No</label></span>
                 </div>
+                <table>
+                    <td>
+                        <button type="submit" style="margin-top: 20px;">Submit</button>
+                        <button type="submit" style="margin-top: 20px;">Assign this device</button>
+                    
+                    </td>
+                </table>
 
-                <button type="submit" style="margin-top: 20px;">Submit</button>
             </form>
         </div>
     </div>

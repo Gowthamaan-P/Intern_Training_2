@@ -133,13 +133,28 @@ table {
 
 td, th {
   border: 1px solid #dddddd;
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
 
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+.custom-button1{
+    background-color: red;
+    width: 105px;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-button2{
+    background-color: green;
+    width: 105px;
+    align-items: center;
+    justify-content: center;
+}
+
     </style>
 </head>
 <body>
@@ -150,15 +165,17 @@ tr:nth-child(even) {
     </div>
 
     <div class="header">Active User: {{ doctor_email }}</div>
-    <h3>All Devices</h3>
+    <h3>Login History</h3>
 
 
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>User</th>
-                <th>Device</th>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>Device ID</th>
+                <th>Device Serial</th>
                 <th>Login Time</th>
                 <th>Logout Time</th>
                 <th>Status</th>
@@ -169,10 +186,17 @@ tr:nth-child(even) {
                 <tr>
                     <td>{{ usermapping.id }}</td>
                     <td>{{ usermapping.user_id }}</td>
+                    <td>{{ doctor_email }}</td>
                     <td>{{ usermapping.device_id }}</td>
+                    <td>{{ device_name }}</td>
                     <td>{{ usermapping.login_time }}</td>
-                    <td>{{ usermapping.logout_time }}</td>
-                    <td>{{ usermapping.status }}</td>
+                    <td>{{ usermapping.logout_time }}</td>  
+                    
+                    {% if usermapping.status %}
+                    <td><button class="custom-button2" value="text" type="submit">Logged In</button></td>
+                    {% else %}
+                    <td><button class="custom-button1" value="text" type="submit">Logged Out</button></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

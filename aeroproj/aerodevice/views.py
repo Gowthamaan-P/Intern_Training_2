@@ -9,7 +9,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 import uuid, time, pyotp
 from django.contrib import messages
-
+from aerouser.views import gen_uid
 def devicereg(request):
 
     #email_data = request.session.get('email')
@@ -51,11 +51,12 @@ def usercheck(request):
 
     else:
         return render(request, "usercheck.html", {'error_message': error_message})
-    
+
 def patientreg(request):
-    email_data = request.session.get('email')
+    email_data = request.session.get('doctor_email')
     error_message = None 
-    
+    patient_id = gen_uid()
+
     if request.method == 'POST':
 
         patientid_data = request.POST.get('patientid')
@@ -69,10 +70,10 @@ def patientreg(request):
                     patient_name = patient_name_data, patient_age = patient_age_data,
                     patient_gender = patient_gender_data,contact = contact_data, emergency = emergency_data)
         new_entry.save()
-        return redirect("login")
+        return render(request,"landing.html",)
         
     else:
-        return render(request, "patientreg.html", {'email': email_data}) 
+        return render(request, "patientreg.html", {'email': email_data, 'patient_id':patient_id}) 
 
 
 
@@ -98,6 +99,7 @@ def patientcheck(request):
 def mydevices(request):
     email_data = request.session.get('doctor_email')
     sno_data = request.session.get('devicelog')
+
     devices_data = devicedata.objects.values()
     user_data = usermapping.objects.values()
     
@@ -109,20 +111,29 @@ def mydevices(request):
     #print(current_user_id[0]["id"])
     for i in temp:
         mes.append(i)
-    
+    #print(mes)
     context = {
-        'messages': mes,
+        'messages': mes[::-1],
         'doctor_email': email_data,
+        'device_name': sno_data,
     }
     
     return render(request, "mydevices.html",context)
 
 def patients(request):
     email_data = request.session.get('doctor_email')
+    objects = patientdata.objects.filter(doctorid=email_data).values()
+    mes = []
+    for i in objects:
+        mes.append(i)
 
-    objects = devicedata.objects.filter(assignuser=email_data).values()
+    #print(mes)
+    context = {
+        'messages': mes,
+        'doctor_email': email_data,
+    }
 
-    return render(request, "mydevices.html", {'doctor_email': objects })
+    return render(request, "patients.html", context)
 
 
 def alldevices(request):
