@@ -1,0 +1,101 @@
+.monitor{
+    font-family:Helvetica, sans-serif;
+  }
+  .monitor-cards{
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+    font-family: Helvetica, sans-serif;
+    background-color: white;
+    margin-bottom: 30px;
+    border-radius: 30px;
+  }
+  .card-container {
+    background-color: white;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem;
+  }
+  p{
+    
+    font-family: Helvetica, sans-serif;
+    font-weight: lighter;
+    margin: 0;
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .monitor-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 0 0 95%;
+    max-width: 95%;
+    width: 100%;
+    background: #fff;
+    border-radius: 20px;
+    margin-right: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: .3s;
+    border: 2px solid white;
+  }
+  
+  .back-button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .device-id,
+  .device-status {
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: medium;
+  }
+  
+  .nav-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+  }
+  
+  .tab {
+    background-color: transparent;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .tab.active {
+    background-color: #1E70F6;
+    border-radius: 20px;
+    color: white;
+  }
+  
+  .inner-card-container {
+    padding: 1rem;
+    border: 1px solid #e6e6e6;
+    background-color: #e6e6e6;
+    border-radius: 20px;
+    margin-top: 2rem;
+  }
+  
+  #case-history{
+    border: none;
+    padding: 0.5rem 1rem;
+    background-color: #1E70F6;
+    color: white;
+    border-radius: 20px ;
+    margin: 5px;
+  }
+  #emergency_status{
+    color: red;
+    font-size: medium;
+  }
+  
