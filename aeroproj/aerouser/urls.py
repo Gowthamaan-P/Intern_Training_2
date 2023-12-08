@@ -8,4 +8,5 @@ urlpatterns = [
     path("forgot/",views.forgot, name="forgot"),
     path("otp_verification",views.otp, name="otp_verification"),
     path("password_change/<str:token>",views.password_reset, name="password_change"),
+    path("logout",views.logout, name="logout"),
 ]

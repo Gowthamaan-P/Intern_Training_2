@@ -4,17 +4,49 @@
     <meta charset="UTF-8">
     <title>List of Patients</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
+            background-color: #ffffff;
+            margin-top: 20px;
         }
+
         th, td {
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
         }
+
         th {
             background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td:last-child {
+            text-transform: capitalize;
+        }
+
+        td:nth-child(n+5):nth-child(-n+6) {
+            text-transform: capitalize;
         }
     </style>
 </head>
@@ -29,6 +61,7 @@
                 <th>Age</th>
                 <th>Gender</th>
                 <th>Status</th>
+                <th>Doctor Assigned</th>
             </tr>
         </thead>
         <tbody>
@@ -39,10 +72,11 @@
                 <td>{{ patient.age }}</td>
                 <td>{{ patient.get_gender_display }}</td>
                 <td>{{ patient.get_status_display }}</td>
+                <td>{{ patient.doc_name }}</td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="5">No patients found</td>
+                <td colspan="6">No patients found</td>
             </tr>
             {% endfor %}
         </tbody>

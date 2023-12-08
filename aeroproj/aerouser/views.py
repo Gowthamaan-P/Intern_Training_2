@@ -5,34 +5,95 @@ from django.conf import settings
 from django.core.mail import send_mail
 import random,time
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.core.mail import send_mail
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from .models import userdata, PasswordResetToken
-
+from .models import userdata, PasswordResetToken,logs
+from django.utils import timezone
+from ventilator.models import Ventilator 
+from django.http import HttpResponseServerError
+'''
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth.hashers import check_password
+from .models import userdata  # Import your User model here
+from .serializers import UserSerializer  # Import serializer if needed '''
 
 def login(request):
-     
-     if request.method == 'POST':
+    if request.method == 'POST':
         field1_data = request.POST.get('email')   
         field2_data = request.POST.get('password')
-        
+        field3_data = request.POST.get('serial_number')
+      
         if not userdata.objects.filter(email__iexact=field1_data).exists():
-            error_message = "Email dosen't exists in the database."
+            error_message = "Email doesn't exist in the database."
             return render(request, "login.html", {'error_message': error_message})
-            
-        else:  
-            user = userdata.objects.get(email=field1_data)
-            stored_password = user.password
-            name1=user.username
+        
+        if not Ventilator.objects.filter(serial_number=field3_data).exists():
+            error_message = "Serial number doesn't exist in the device records."
+            return render(request, "login.html", {'error_message': error_message})
+
+        user = userdata.objects.get(email=field1_data)
+        stored_password = user.password
+        name1 = user.username
           
-            if not check_password(field2_data,stored_password):
-              error_message = "Wrong password"
-              return render(request, "login.html", {'error_message': error_message})
-            else:
-             return render(request, "landing.html",{'error_message': name1})
-     else:
+        if not check_password(field2_data, stored_password):
+            error_message = "Wrong password"
+            return render(request, "login.html", {'error_message': error_message})
+        else:
+
+            new_entry = logs(email=field1_data, serial_number=field3_data, log_in=timezone.now())
+            new_entry.save() 
+            request.session['serial_number'] = field3_data
+            request.session['email'] = field1_data
+            return render(request, "landing.html", {'error_message': name1, 'error_message1': field3_data})
+    else:
         return render(request, "login.html")
+
+
+def logout(request):
+    field1_data = request.session.get('serial_number')
+
+    if field1_data:
+        try:
+            user = logs.objects.filter(serial_number=field1_data).latest('id')
+            user.log_out = timezone.now()
+            user.save()
+            del request.session['serial_number']
+            return redirect("login")
+        except logs.DoesNotExist:
+            print("Logs object does not exist or serial number not found.")
+            return HttpResponseServerError('Internal Server Error')
+    else:
+        print("Serial number not found in session.")
+        return HttpResponseServerError('Internal Server Error')
+
+
+     
+'''
+@api_view(['POST'])
+def login(request):
+    if request.method == 'POST':
+        field1_data = request.data.get('email')
+        field2_data = request.data.get('password')
+
+        try:
+            user = userdata.objects.get(email__iexact=field1_data)
+        except userdata.DoesNotExist:
+            return Response({"error_message": "Email doesn't exist in the database."}, status=status.HTTP_404_NOT_FOUND)
+
+        stored_password = user.password
+        name1 = user.username
+
+        if not check_password(field2_data, stored_password):
+            return Response({"error_message": "Wrong password"}, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            # Assuming you want to return some user data after successful login
+            # You might need to create a serializer to serialize userdata
+            serializer = UserSerializer(user)  # Use your serializer here if needed
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+    return Response(status=status.HTTP_400_BAD_REQUEST)'''
 
 def generate_otp():
     timestamp = str(int(time.time()))  

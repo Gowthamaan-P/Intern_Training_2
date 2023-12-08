@@ -102,7 +102,23 @@ button:hover {
             font-family: "Helvetica Neue Light", sans-serif;
             margin: 20px;
         }
-
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff0000; 
+            color: #fff; 
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+         
+        .logout-btn:hover {
+            background-color: #cc0000; 
+        }
         .header {
             text-align: center;
             color: #1f1f1f;
@@ -119,12 +135,14 @@ button:hover {
     </style>
 </head>
 <body>
+    <a href="http://127.0.0.1:8000/logout"><button class="logout-btn"> Logout</button></a>
     <div class="welcome">
         <span>Welcome to</span>
         <span style="color: #007BFF;">Aerobiosys Innovations</span>
     </div>
 
     <div class="header">CurrentUser: {{ error_message }}</div>
+    <div class="header">Currentdevice: {{ error_message1 }}</div>
 
     <div class="container">
         <div class="box">
@@ -132,13 +150,11 @@ button:hover {
             <div class="title">Facilities</div>
         </div>
             <div class="content2">
-                <a href="http://127.0.0.1:8000/device_reg2" class="add-device" style="text-decoration: none;"><button> Add Device</button></a>
-                <a href="http://127.0.0.1:8000/patient" class="add-patient" style="text-decoration: none;"><button> Add Patient</button></a>
                 <a href="http://127.0.0.1:8000/device_list" class="view-device" style="text-decoration: none;"><button>  View Devices</button></a>
+                <a href="http://127.0.0.1:8000/" class="view-device" style="text-decoration: none;"><button>  My Devices</button></a>
                 <a href="http://127.0.0.1:8000/patient_list" class="view-patient" style="text-decoration: none;"><button> View Patients</button></a>
             </div>
         </div>
     </div>
-
 </body>
 </html>

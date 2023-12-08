@@ -4,45 +4,101 @@
     <meta charset="UTF-8">
     <title>List of Devices</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
         }
-        th {
-            background-color: #f2f2f2;
+
+        .device-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .device-list-item {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 12px;
+            border-bottom: 1px solid #dddddd; 
+            background-color: #ffffff;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        .device-list-item div {
+            flex: 1;
+        }
+
+        .allocate-button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .allocate-button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            color: #555;
         }
     </style>
 </head>
 <body>
     <h1>List of Devices</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Serial number</th>
-                <th>Location</th>
-                <th>Model</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for device in devices %}
-            <tr>
-                    <td>{{ device.serial_number }}</td>
-                    <td>{{ device.location }}</td>
-                    <td>{{ device.model }}</td>
-            </tr>
-        </tr>
+    <ul class="device-list">
+        {% for device in devices %}
+            <li class="device-list-item">
+                <div>
+                    <strong>Serial number:</strong> {{ device.serial_number }} <br>
+                    <strong>Location:</strong> {{ device.location }} <br>
+                    <strong>Model:</strong> {{ device.model }}<br>
+                    <strong>Status:</strong> {{ device.status }}
+                </div>
+                {% if device.status != 'Allocated' %}
+                    <a href="{% url 'patient' serial_number1=device.serial_number %}" class="allocate-button">Register</a>
+                {% else %}
+                    <p>This device is already allocated</p>
+                    <a href="{% url 'unallocate_device' serial_number2=device.serial_number %}" class="allocate-button">Unallocate</a>
+                {% endif %}
+            </li>
         {% empty %}
-        <tr>
-            <td colspan="5">No devices found</td>
-        </tr>
+            <li class="device-list-item">No devices found</li>
         {% endfor %}
-        </tbody>
-    </table>
+    </ul>   
+
+   <!-- <ul class="device-list">
+        {% for device in devices %}
+            <li class="device-list-item">
+                <div>
+                    <strong>Serial number:</strong> {{ device.serial_number }} <br>
+                    <strong>Location:</strong> {{ device.location }} <br>
+                    <strong>Model:</strong> {{ device.model }}<br>
+                    <strong>Status:</strong> {{ device.status }}
+                </div>
+                {% if device.status != 'Allocated' %}
+                    <a href="{% url 'patient' serial_number1=device.serial_number %}" class="allocate-button">Register</a>
+                {% else %}
+                    <p>This device is already allocated</p>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li class="device-list-item">No devices found</li>
+        {% endfor %}
+    </ul> -->
 </body>
 </html>

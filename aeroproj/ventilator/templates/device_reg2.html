@@ -3,27 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <title>Device Registration</title>
-    <link rel="stylesheet" href="../static/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label, input {
+            margin-bottom: 15px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        p {
+            margin-top: 20px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">
-    <div class="login-box">
-        <h1>Device Registration</h1>
-    <form action="{% url 'device_reg2' %}" method="POST"> 
-        {% csrf_token %}
-        <label for="serial_number">Serial Number:</label>
-        <input type="text" id="serial_number" name="serial_number" required><br><br>
+        <div class="login-box">
+            <h1>Device Registration</h1>
+            <form action="{% url 'device_reg2' %}" method="POST"> 
+                {% csrf_token %}
+                <label for="serial_number">Serial Number:</label>
+                <input type="text" id="serial_number" name="serial_number" required><br><br>
 
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location"><br><br>
-        
-        <label for="model">Model:</label>
-        <input type="text" id="model" name="model"><br><br>
-        </select><br><br>
-        
-        <input type="submit" value="Submit">
-    </form>
-</div>
-</div>
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location"><br><br>
+                
+                <label for="model">Model:</label>
+                <input type="text" id="model" name="model"><br><br>
+                
+                <input type="submit" value="Submit">
+                <p>{{ error_message }}</p>
+            </form>
+            <p>Monitor devices? <a href="login">Login here</a></p>
+        </div>
+    </div>
 </body>
 </html>
