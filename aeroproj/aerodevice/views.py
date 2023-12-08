@@ -10,6 +10,9 @@ from django.core.mail import send_mail
 import uuid, time, pyotp
 from django.contrib import messages
 from aerouser.views import gen_uid
+import requests
+
+
 def devicereg(request):
 
     #email_data = request.session.get('email')
@@ -23,34 +26,28 @@ def devicereg(request):
         location_data = request.POST.get('location')
         status_data = "Idle"
 
-        new_entry = devicedata(device_name=d_name, model=model_data, 
-                            serial_number=serial_data, status=status_data, location=location_data)
-        new_entry.save()
+        url = "http://127.0.0.1:8000/adddevices/"
+
+        data = {
+            'device_name' : d_name, 
+            'model' : model_data, 
+            'serial_number' : serial_data,
+            'status' : status_data,
+            'location' : location_data
+        }
+
+        print("Request Data:", data)
+
+        response = requests.post(url, json=data)
+
+        print(response.status_code)
+
+
         return redirect("login")
         
     else:
         return render(request, "devicereg.html",) 
 
-
-def usercheck(request):
-    error_message = None 
-    if request.method == 'POST':
-        email_data = request.POST.get('email')   
-        
-        if not userdata.objects.filter(email__iexact=email_data).exists():
-            error_message1 = "Incorrect Email!"
-            print("email no exsist")
-
-            messages.success(request, "Incorrect Email!")
-
-            return render(request, "signup.html", {'error_message1': error_message1})
-            
-        else:  
-            request.session['email'] = email_data
-            return redirect("mydevices")
-
-    else:
-        return render(request, "usercheck.html", {'error_message': error_message})
 
 def patientreg(request):
     email_data = request.session.get('doctor_email')
@@ -66,35 +63,31 @@ def patientreg(request):
         contact_data = request.POST.get('contact')
         emergency_data = request.POST.get('emergency')
 
-        new_entry = patientdata(doctorid = email_data,patientid = patientid_data,
-                    patient_name = patient_name_data, patient_age = patient_age_data,
-                    patient_gender = patient_gender_data,contact = contact_data, emergency = emergency_data)
-        new_entry.save()
+
+        url = "http://127.0.0.1:8000/addpatients/"
+
+        data = {
+        'doctorid': email_data,
+        'patientid': patientid_data,
+        'patient_name': patient_name_data,
+        'patient_age': patient_age_data,
+        'patient_gender': patient_gender_data,
+        'contact': contact_data,
+        'emergency': emergency_data,
+        }
+
+        print("Request Data:", data)
+
+        response = requests.post(url, json=data)
+
+        print(response.status_code)
+        print(response.json())
+
         return render(request,"landing.html",)
         
     else:
         return render(request, "patientreg.html", {'email': email_data, 'patient_id':patient_id}) 
 
-
-
-def patientcheck(request):
-    error_message = None 
-    if request.method == 'POST':
-        email_data = request.POST.get('email')   
-        
-        if not userdata.objects.filter(email__iexact=email_data).exists():
-            error_message1 = "Incorrect Email!"
-            print("email no exsist")
-
-            messages.success(request, "Incorrect Email!")
-
-            return render(request, "signup.html", {'error_message1': error_message1})
-            
-        else:  
-            request.session['email'] = email_data
-            return redirect("patientreg")
-    else:
-        return render(request, "usercheck.html", {'error_message': error_message})
 
 def mydevices(request):
     email_data = request.session.get('doctor_email')

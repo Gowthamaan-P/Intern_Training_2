@@ -201,10 +201,6 @@ tr:nth-child(even) {
                     {% else %}
                     <td><button class="custom-button2" value="text" type="submit">Normal</button></td>
                     {% endif %}
-                    <form action = "">
-                        {% csrf_token %}
-                        <td><button class="custom-button3" value="text" type="submit">Revoke</button></td>
-                    </form>
                     
                 </tr>
             {% endfor %}

@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from aerodevice.models import patientdata
-from .serializers import patientdataSerializer
+from aerodevice.models import devicedata, patientdata, usermapping
+from .serializers import patientdataSerializer, devicedataSerializer, usermappingSerializer
 
 @api_view(['GET'])
 def getData(request):
@@ -10,8 +10,15 @@ def getData(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
-def addItem(request):
+def addPatients(request):
     serializer = patientdataSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def addDevices(request):
+    serializer = devicedataSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)

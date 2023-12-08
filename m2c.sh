@@ -91,9 +91,10 @@ backup_repo() {
 
 while true; do
     echo -e "${BOLD}Which repository do you want to commit to?${NORMAL}"
-    echo -e "1. ${GREEN}${BOLD}Intern Repo 1${NORMAL}"
-    echo -e "2. ${GREEN}${BOLD}Backup Repo 2${NORMAL}"
-    echo -e "3. ${RED}${BOLD}Exit${NORMAL}"
+    echo -e " >> ${GREEN}${BOLD}1 Intern Repo${NORMAL}"
+    echo -e " >> ${GREEN}${BOLD}2 Backup Repo${NORMAL}"
+    echo -e " >> ${GREEN}${BOLD}3 Both Repo${NORMAL}"
+    echo -e " >> ${RED}${BOLD}4 Exit${NORMAL}"
 
     read -p "${BOLD}Enter your choice (1/2/3):${NORMAL} " choice
 
@@ -105,7 +106,20 @@ while true; do
             backup_repo
             ;;
         3)
+            intern_repo
+            backup_repo
+            ;;
+        4)
+            echo
             print_message "$GREEN" "Exiting the script."
+            echo
+            for i in {5..1}; do
+                echo -ne "$GREEN""Cleaning terminal in ""$i"
+                sleep 1
+                echo -ne "\033[1K\r"  # Clear the line and move the cursor back
+            done
+
+            clear
             exit 0
             ;;
         *)
