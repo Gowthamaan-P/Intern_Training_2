@@ -42,8 +42,7 @@ intern_repo() {
     sleep 2
     echo -e "__________________________________________________________________________________________________________"
 
-    echo -e "\e[1;33mCommit message:\e[0m"
-    read commit_message
+
 
     git commit -m "$commit_message"
 
@@ -77,8 +76,7 @@ backup_repo() {
     sleep 2
     echo -e "__________________________________________________________________________________________________________"
 
-    echo -e "\e[1;33mCommit message:\e[0m"
-    read commit_message
+
 
     git commit -m "$commit_message"
 
@@ -90,22 +88,31 @@ backup_repo() {
 
 
 while true; do
+    echo
+    echo -e "${YELLOW}Script by Venukanthan - https://github.com/itsvenu22${NORMAL}"
+    echo
     echo -e "${BOLD}Which repository do you want to commit to?${NORMAL}"
     echo -e " >> ${GREEN}${BOLD}1 Intern Repo${NORMAL}"
     echo -e " >> ${GREEN}${BOLD}2 Backup Repo${NORMAL}"
     echo -e " >> ${GREEN}${BOLD}3 Both Repo${NORMAL}"
     echo -e " >> ${RED}${BOLD}4 Exit${NORMAL}"
 
-    read -p "${BOLD}Enter your choice (1/2/3):${NORMAL} " choice
+    read -p "${BOLD}0ffS3c-v3nu enter your choice (1/2/3/4):${NORMAL} " choice
 
     case "$choice" in
         1)
+			echo -e "\e[1;33mCommit message:\e[0m"
+			read commit_message
             intern_repo
             ;;
         2)
+			echo -e "\e[1;33mCommit message:\e[0m"
+			read commit_message		
             backup_repo
             ;;
         3)
+			echo -e "\e[1;33mCommit message:\e[0m"
+			read commit_message	
             intern_repo
             backup_repo
             ;;
