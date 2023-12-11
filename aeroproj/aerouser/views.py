@@ -137,17 +137,21 @@ def login(request):
                 
                 request.session['userlog'] = field1_data
                 request.session['devicelog'] = field3_data
+
                 print('.............................................................')
 
                 usertype = user_temp.usertype
+                request.session['usertype'] = usertype
 
                 context = {
                     'usertype': usertype,
                     'doctor_email': display_mail
                 }
-                if usertype == "Superuser":return render(request,"superlanding.html", context,)
+
+                request.session['context'] = context
+
+                return render(request,"landing.html", context,)
                 
-                elif usertype == "Staff":return render (request,"landing.html", context,)
     else:
         return render(request, "login.html", {'error_message': error_message})
 

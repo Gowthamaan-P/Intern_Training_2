@@ -82,10 +82,10 @@
     margin-top: 5px;
 }
 
-        .header {
+.header {
             text-align: center;
             color: #1f1f1f;
-            font-size: 36px;
+            font-size: 20px;
             font-weight: 300;
             margin-top: 20px;
         }
@@ -149,7 +149,14 @@ tr:nth-child(even) {
         <span style="color: #007BFF;">Aerobiosys Innovations</span>
     </div>
 
-    <div class="header">Active User: {{ doctor_email }}</div>
+    <div class="header">
+        <p><strong>User Id:</strong> {{ doctor_email }}</p>
+        {% if usertype == "Superuser" %}
+        <p><strong>User Group : <span style="color: red;">{{ usertype }}</span></strong></p>
+        {% else %}
+        <p><strong>User Group : <span style="color: blue;">{{ usertype }}</span></strong></p>
+        {% endif %}
+    </div>
     <h3>All Devices</h3>
 
 

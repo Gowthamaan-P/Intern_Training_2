@@ -82,23 +82,28 @@ def patientreg(request):
 
         print(response.status_code)
         print(response.json())
-
-        return render(request,"landing.html",)
+        context = request.session.get('context')
+        return render(request,"landing.html", context)
         
     else:
         return render(request, "patientreg.html", {'email': email_data, 'patient_id':patient_id}) 
 
 
-def mydevices(request):
+def mylog(request):
     email_data = request.session.get('doctor_email')
     sno_data = request.session.get('devicelog')
 
     devices_data = devicedata.objects.values()
     user_data = usermapping.objects.values()
-    
-    current_user_id = userdata.objects.filter(email=email_data).values()
-    
-    temp = usermapping.objects.filter(user=current_user_id[0]['id']).values()
+
+    usertype = request.session.get('usertype')
+    print(usertype)
+    if usertype == "Superuser":
+        temp = usermapping.objects.all().values()
+        print("super user logged in")
+    else:
+        current_user_id = userdata.objects.filter(email=email_data).values()
+        temp = usermapping.objects.filter(user=current_user_id[0]['id']).values()
 
     mes = []
     #print(current_user_id[0]["id"])
@@ -109,21 +114,28 @@ def mydevices(request):
         'messages': mes[::-1],
         'doctor_email': email_data,
         'device_name': sno_data,
+        'usertype': usertype,
     }
     
-    return render(request, "mydevices.html",context)
+    return render(request, "mylog.html",context)
 
 def patients(request):
     email_data = request.session.get('doctor_email')
-    objects = patientdata.objects.filter(doctorid=email_data).values()
+    usertype = request.session.get('usertype')
+
+    print(usertype)
+    if usertype != "Superuser":
+        objects = patientdata.objects.filter(doctorid=email_data).values()
+    else:
+        objects = patientdata.objects.values()
     mes = []
     for i in objects:
         mes.append(i)
-
     #print(mes)
     context = {
         'messages': mes,
         'doctor_email': email_data,
+        'usertype': usertype,
     }
 
     return render(request, "patients.html", context)
@@ -131,7 +143,7 @@ def patients(request):
 
 def alldevices(request):
     email_data = request.session.get('doctor_email')
-
+    usertype = request.session.get('usertype')
     mes = []
     assign_status = "Assign Me"
     devices_data = devicedata.objects.values()
@@ -147,6 +159,7 @@ def alldevices(request):
     context = {
         'messages': mes,
         'doctor_email': email_data,
+        'usertype': usertype,
     }
 
     return render(request, "alldevices.html", context)
