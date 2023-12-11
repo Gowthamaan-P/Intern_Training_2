@@ -1,8 +1,11 @@
 import React from "react";
+import { useLocation } from 'react-router-dom';
 import './Monitor.css'
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
-const Monitor = ({ props }) => {
+const Monitor = () => {
+  const location = useLocation();
+  const { id, status } = location.state || {};
   const [cards] = useState([
     {
       pid:'PA-IV-0198',
@@ -30,8 +33,8 @@ const Monitor = ({ props }) => {
       <div className="card-container">
         <header className="card-header">
         <a href="/"><button className="back-button">Back</button></a>
-          <span className="device-id">{}</span>
-          <span className="device-status">{}</span>
+          <span className="device-id">{id}</span>
+          <span className="device-status">{status}</span>
         </header>
         <nav className="nav-tabs">
           <ul>
