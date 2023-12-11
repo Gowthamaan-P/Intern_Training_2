@@ -1,4 +1,5 @@
 import './App.css';
+//import Home from './components/Home';
 import Devices from './components/Devices';
 import Monitor from "./components/Monitor";
 import DeviceInfo from "./components/DeviceInfo"
@@ -10,6 +11,7 @@ function App() {
     <div className="app" id='devices'>
         <Routes>
             <Route path='/' element={<Devices />} />
+            <Route path='/Devices' element={<Devices />} />
             <Route path='/Monitoring' element={<Monitor />} />
             <Route path='/DeviceInfo' element={<DeviceInfo />} />
             <Route path='/PatientInfo' element={<PatientInfo />} />

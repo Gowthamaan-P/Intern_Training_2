@@ -26,7 +26,7 @@ const PatientHistory = ({ deviceID, deviceStatus }) => {
     <div className="monitor-cards">
       <div className="card-container">
         <header className="card-header">
-        <a href="/PatientInfo"><button className="back-button">Back</button></a>
+        <a href="/PatientInfo" className="btn"><button className="back-button">Back</button></a>
           <span className="device-id">{deviceID}</span>
           <span className="device-status">{deviceStatus}</span>
         </header>

@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import { useState } from 'react';
 import duovent from '../duovent.png';
 import jeevanlite from '../jeevanlite.png';
+import { Link } from "react-router-dom";
 function Devices() {
   const [cards] = useState([
     {
@@ -47,9 +48,9 @@ function Devices() {
     },
 
   ])
-  const getStatusClass = (status) => {
-    return status === 'Active' ? 'active-status' : 'inactive-status';
-  };
+  
+  const getStatusClass = (status) => status === 'Active' ? 'active-status' : 'inactive-status';
+
   return (
     <div className="app" id='devices'>
         <div className='navbar'>
@@ -73,7 +74,9 @@ function Devices() {
                     <h4 className={getStatusClass(card.status)} id='status'>{card.status}</h4>
                     <p id='timestamp'>{card.timestamp}</p>
                   </div>
-                   <a href='/Monitoring'><img className='ventilator-image' src={card.image} alt="ventilatorImage" /></a>
+                    <Link to="/Monitoring" state={{ id: card.id, status: card.status }}>
+                      <img className="ventilator-image" src={card.image} alt="ventilatorImage" />
+                    </Link>
                   </div>
               ))
             }

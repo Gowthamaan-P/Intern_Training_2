@@ -17,6 +17,12 @@ const DeviceInfo = ({ deviceID, deviceStatus }) => {
   ])
   return (
     <section className="monitor">
+      <div className='navbar'>
+          <div className="brand">
+            <img id='logo' src={process.env.PUBLIC_URL + 'aerobiosys.gif'} alt="Logo"></img>
+            <h2 id='title'>Aerobiosys Innovations</h2>
+          </div>
+        </div>
     <h1>Device Info</h1>
     <div className="monitor-cards">
       <div className="card-container">
@@ -28,13 +34,13 @@ const DeviceInfo = ({ deviceID, deviceStatus }) => {
         <nav className="nav-tabs">
           <ul>
             <li className="tab">
-              <Link to="/Monitoring">Monitoring</Link>
+              <Link to="/Monitoring"><p>Monitoring</p></Link>
             </li>
             <li className="tab active">
               <Link to='/DeviceInfo'>Device Info</Link>
             </li>
             <li className="tab">
-              <Link to='/PatientInfo'>Patient Info</Link>
+              <Link to='/PatientInfo'><p>Patient Info</p></Link>
             </li>
           </ul>
         </nav>

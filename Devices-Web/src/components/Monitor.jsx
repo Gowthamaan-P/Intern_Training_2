@@ -2,7 +2,7 @@ import React from "react";
 import './Monitor.css'
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
-const Monitor = ({ deviceID, deviceStatus }) => {
+const Monitor = ({ props }) => {
   const [cards] = useState([
     {
       pid:'PA-IV-0198',
@@ -19,13 +19,19 @@ const Monitor = ({ deviceID, deviceStatus }) => {
   ])
   return (
     <section className="monitor">
+      <div className='navbar'>
+          <div className="brand">
+            <img id='logo' src={process.env.PUBLIC_URL + 'aerobiosys.gif'} alt="Logo"></img>
+            <h2 id='title'>Aerobiosys Innovations</h2>
+          </div>
+        </div>
     <h1>Monitor</h1>
     <div className="monitor-cards">
       <div className="card-container">
         <header className="card-header">
         <a href="/"><button className="back-button">Back</button></a>
-          <span className="device-id">{deviceID}</span>
-          <span className="device-status">{deviceStatus}</span>
+          <span className="device-id">{}</span>
+          <span className="device-status">{}</span>
         </header>
         <nav className="nav-tabs">
           <ul>
@@ -33,15 +39,15 @@ const Monitor = ({ deviceID, deviceStatus }) => {
               <Link to="/Monitoring">Monitoring</Link>
             </li>
             <li className="tab">
-              <Link to='/DeviceInfo'>Device Info</Link>
+              <Link to='/DeviceInfo'><p>Device Info</p></Link>
             </li>
             <li className="tab">
-              <Link to='/PatientInfo'>Patient Info</Link>
+              <Link to='/PatientInfo'><p>Patient Info</p></Link>
             </li>
           </ul>
         </nav>
         <div className="inner-card-container">
-          { 
+          {
             <div className="cards">
             {
               cards.map((card, i) => (
