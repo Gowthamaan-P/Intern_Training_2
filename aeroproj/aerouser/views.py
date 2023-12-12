@@ -150,8 +150,10 @@ def login(request):
 
                 request.session['context'] = context
 
-                return render(request,"landing.html", context,)
-                
+                if usertype == "Superuser":
+                    return render(request,"superlanding.html", context,)
+                else:
+                    return render(request,"landing.html", context,)
     else:
         return render(request, "login.html", {'error_message': error_message})
 

@@ -123,13 +123,16 @@ while true; do
             for i in {5..1}; do
                 echo -ne "$GREEN""Cleaning terminal in ""$i"
                 sleep 1
-                echo -ne "\033[1K\r"  # Clear the line and move the cursor back
+                echo -ne "\033[1K\r"  
             done
 
             clear
             exit 0
             ;;
         *)
+            clear
+            echo
+            echo
             print_message "$RED" "Yooooooooooo :\ "
             ;;
     esac

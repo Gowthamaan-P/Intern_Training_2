@@ -11,6 +11,11 @@ class patientdataSerializer(serializers.ModelSerializer):
         model = patientdata
         fields = '__all__'
 
+class logdataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = usermapping
+        fields = '__all__'
+
 class usermappingSerializer(serializers.ModelSerializer):
     class Meta:
         model = usermapping

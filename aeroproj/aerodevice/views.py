@@ -98,18 +98,11 @@ def mylog(request):
 
     usertype = request.session.get('usertype')
     print(usertype)
-    if usertype == "Superuser":
-        temp = usermapping.objects.all().values()
-        print("super user logged in")
-    else:
-        current_user_id = userdata.objects.filter(email=email_data).values()
-        temp = usermapping.objects.filter(user=current_user_id[0]['id']).values()
+    current_user_id = userdata.objects.filter(email=email_data).values()
+    temp = usermapping.objects.filter(user=current_user_id[0]['id']).values()
 
-    mes = []
-    #print(current_user_id[0]["id"])
-    for i in temp:
-        mes.append(i)
-    #print(mes)
+    mes = [i for i in temp]
+
     context = {
         'messages': mes[::-1],
         'doctor_email': email_data,
@@ -118,6 +111,27 @@ def mylog(request):
     }
     
     return render(request, "mylog.html",context)
+
+def otherlog(request):
+    email_data = request.session.get('doctor_email')
+    sno_data = request.session.get('devicelog')
+    usertype = request.session.get('usertype')
+    
+    temp = usermapping.objects.all().values()
+
+    print('########################################################')
+    mes = [i for i in temp]
+    for i in mes:
+        t = userdata.objects.filter(id = i['user_id']).values('email')
+        i['user_id'] = t[0]['email']
+    context = {
+        'messages': mes[::-1],
+        'doctor_email': email_data,
+        'device_name': sno_data,
+        'usertype': usertype,
+    }
+    return render(request, "otherlog.html",context)
+
 
 def patients(request):
     email_data = request.session.get('doctor_email')

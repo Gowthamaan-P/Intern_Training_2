@@ -7,6 +7,6 @@ urlpatterns = [
     path("signup",views.signup, name="signup" ),
     path("otp",views.otp, name="otp" ),
     path("forgot",views.forgot, name="forgot" ),
-    path("forgot_otp",views.forgot_otp, name="forgot_otp")
+    path("forgot_otp",views.forgot_otp, name="forgot_otp"),
 
 ]
