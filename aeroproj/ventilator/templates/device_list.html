@@ -80,25 +80,5 @@
             <li class="device-list-item">No devices found</li>
         {% endfor %}
     </ul>   
-
-   <!-- <ul class="device-list">
-        {% for device in devices %}
-            <li class="device-list-item">
-                <div>
-                    <strong>Serial number:</strong> {{ device.serial_number }} <br>
-                    <strong>Location:</strong> {{ device.location }} <br>
-                    <strong>Model:</strong> {{ device.model }}<br>
-                    <strong>Status:</strong> {{ device.status }}
-                </div>
-                {% if device.status != 'Allocated' %}
-                    <a href="{% url 'patient' serial_number1=device.serial_number %}" class="allocate-button">Register</a>
-                {% else %}
-                    <p>This device is already allocated</p>
-                {% endif %}
-            </li>
-        {% empty %}
-            <li class="device-list-item">No devices found</li>
-        {% endfor %}
-    </ul> -->
 </body>
 </html>
