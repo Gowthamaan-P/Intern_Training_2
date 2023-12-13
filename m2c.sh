@@ -43,7 +43,6 @@ intern_repo() {
     echo -e "__________________________________________________________________________________________________________"
 
 
-
     git commit -m "$commit_message"
 
     git status
@@ -86,6 +85,56 @@ backup_repo() {
     git push -u origin main
 }
 
+git_message() {
+    echo
+    echo -e " >> ${GREEN}${BOLD}1 Feature${NORMAL}"
+    echo -e " >> ${GREEN}${BOLD}2 Bugfix${NORMAL}"
+    echo -e " >> ${GREEN}${BOLD}3 Security${NORMAL}"
+    echo -e " >> ${GREEN}${BOLD}4 Documentation${NORMAL}"
+    echo -e " >> ${GREEN}${BOLD}5 Style${NORMAL}"
+    echo -e " >> ${GREEN}${BOLD}6 Test${NORMAL}"
+
+    read -p "${BOLD}0ffS3c-v3nu enter your choice (1/2/3/4/5/6):${NORMAL} " choice1
+
+    case "$choice1" in
+        1)
+            echo -e "\e[1;33mCommit message01:\e[0m"
+            read commit_message01
+            commit_type="feat"
+            ;;
+        2)
+            echo -e "\e[1;33mCommit message01:\e[0m"
+            read commit_message01
+            commit_type="bugfix"
+            ;;
+        3)
+            echo -e "\e[1;33mCommit message01:\e[0m"
+            read commit_message01
+            commit_type="security"
+            ;;
+        4)
+            echo -e "\e[1;33mCommit message01:\e[0m"
+            read commit_message01
+            commit_type="doc"
+            ;;
+        5)
+            echo -e "\e[1;33mCommit message01:\e[0m"
+            read commit_message01
+            commit_type="style"
+            ;;
+        6)
+            echo -e "\e[1;33mCommit message01:\e[0m"
+            read commit_message01
+            commit_type="test"
+            ;;
+    esac
+    echo 
+    echo -e "\e[1;33mCommit message02:\e[0m"
+    read commit_message02
+    commit_message="$commit_type($commit_message01): $commit_message02"
+    echo $commit_message 
+    sleep 10
+}
 
 while true; do
     echo
@@ -101,18 +150,15 @@ while true; do
 
     case "$choice" in
         1)
-			echo -e "\e[1;33mCommit message:\e[0m"
-			read commit_message
+            git_message
             intern_repo
             ;;
         2)
-			echo -e "\e[1;33mCommit message:\e[0m"
-			read commit_message		
+			git_message	
             backup_repo
             ;;
         3)
-			echo -e "\e[1;33mCommit message:\e[0m"
-			read commit_message	
+			git_message	
             intern_repo
             backup_repo
             ;;
