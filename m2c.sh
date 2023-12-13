@@ -86,6 +86,7 @@ backup_repo() {
 }
 
 git_message() {
+    clear
     echo
     echo -e " >> ${GREEN}${BOLD}1 Feature${NORMAL}"
     echo -e " >> ${GREEN}${BOLD}2 Bugfix${NORMAL}"
@@ -93,47 +94,58 @@ git_message() {
     echo -e " >> ${GREEN}${BOLD}4 Documentation${NORMAL}"
     echo -e " >> ${GREEN}${BOLD}5 Style${NORMAL}"
     echo -e " >> ${GREEN}${BOLD}6 Test${NORMAL}"
-
+    echo
     read -p "${BOLD}0ffS3c-v3nu enter your choice (1/2/3/4/5/6):${NORMAL} " choice1
 
     case "$choice1" in
         1)
+            commit_type="feat"
             echo -e "\e[1;33mCommit message01:\e[0m"
             read commit_message01
-            commit_type="feat"
             ;;
         2)
+            commit_type="bugfix"
             echo -e "\e[1;33mCommit message01:\e[0m"
             read commit_message01
-            commit_type="bugfix"
+            
             ;;
         3)
+            commit_type="security"
             echo -e "\e[1;33mCommit message01:\e[0m"
             read commit_message01
-            commit_type="security"
+            
             ;;
         4)
+            commit_type="doc"
             echo -e "\e[1;33mCommit message01:\e[0m"
             read commit_message01
-            commit_type="doc"
+            
             ;;
         5)
+            commit_type="style"
             echo -e "\e[1;33mCommit message01:\e[0m"
             read commit_message01
-            commit_type="style"
+            
             ;;
         6)
+            commit_type="test"
             echo -e "\e[1;33mCommit message01:\e[0m"
             read commit_message01
-            commit_type="test"
+            
             ;;
     esac
     echo 
     echo -e "\e[1;33mCommit message02:\e[0m"
+    echo 
+    echo -n "$commit_type($commit_message01): "
     read commit_message02
     commit_message="$commit_type($commit_message01): $commit_message02"
-    echo $commit_message 
-    sleep 10
+    echo
+    echo -e "__________________________________________________________________________________________________________"
+    echo -e "Your Commit Message: ${YELLOW}${BOLD}$commit_message${NORMAL}" 
+    echo -e "__________________________________________________________________________________________________________"
+    sleep 4
+
 }
 
 while true; do
@@ -141,11 +153,12 @@ while true; do
     echo -e "${YELLOW}Script by Venukanthan - https://github.com/itsvenu22${NORMAL}"
     echo
     echo -e "${BOLD}Which repository do you want to commit to?${NORMAL}"
+    echo
     echo -e " >> ${GREEN}${BOLD}1 Intern Repo${NORMAL}"
     echo -e " >> ${GREEN}${BOLD}2 Backup Repo${NORMAL}"
     echo -e " >> ${GREEN}${BOLD}3 Both Repo${NORMAL}"
     echo -e " >> ${RED}${BOLD}4 Exit${NORMAL}"
-
+    echo
     read -p "${BOLD}0ffS3c-v3nu enter your choice (1/2/3/4):${NORMAL} " choice
 
     case "$choice" in
