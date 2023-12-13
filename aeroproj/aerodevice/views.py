@@ -83,8 +83,13 @@ def patientreg(request):
         print(response.status_code)
         print(response.json())
         context = request.session.get('context')
-        return render(request,"landing.html", context)
-        
+
+        usertype = request.session.get('usertype')
+        if usertype == "Superuser":
+            return render(request,"superlanding.html", context)
+        else:
+            return render(request,"landing.html", context)
+
     else:
         return render(request, "patientreg.html", {'email': email_data, 'patient_id':patient_id}) 
 
@@ -119,7 +124,7 @@ def otherlog(request):
     
     temp = usermapping.objects.all().values()
 
-    print('########################################################')
+    print('........................................................')
     mes = [i for i in temp]
     for i in mes:
         t = userdata.objects.filter(id = i['user_id']).values('email')
