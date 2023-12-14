@@ -11,6 +11,7 @@ from .models import userdata, PasswordResetToken,logs
 from django.utils import timezone
 from ventilator.models import Ventilator 
 from django.http import HttpResponseServerError
+from django.db.models import Max
 
 
 def login(request):
@@ -108,7 +109,18 @@ def otp(request):
             try:
                 if entered_otp == user_otp:
                     hashed_password = make_password(user_password)
-                    new_entry = userdata(username=user_name, email=user_email, password=hashed_password)
+                    max_doctor_id = userdata.objects.aggregate(Max('doctor_id'))['doctor_id__max']
+                    if max_doctor_id is None:
+                        doctor_id = 1
+                    else:
+                        doctor_id = max_doctor_id + 1
+                    new_entry = userdata(
+                        username=user_name,
+                        email=user_email, 
+                        password=hashed_password,
+                        doctor_id=doctor_id
+                        )
+                    
                     new_entry.save()
                     return redirect("login")
                 else:

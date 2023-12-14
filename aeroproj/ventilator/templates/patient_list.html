@@ -61,6 +61,7 @@
                 <th>Age</th>
                 <th>Gender</th>
                 <th>Status</th>
+                <th>Doctor ID</th>
                 <th>Doctor Assigned</th>
             </tr>
         </thead>
@@ -72,6 +73,7 @@
                 <td>{{ patient.age }}</td>
                 <td>{{ patient.get_gender_display }}</td>
                 <td>{{ patient.get_status_display }}</td>
+                <td>{{ patient.doc_id }}</td>
                 <td>{{ patient.doc_name }}</td>
             </tr>
             {% empty %}

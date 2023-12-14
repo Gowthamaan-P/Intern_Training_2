@@ -1,5 +1,4 @@
 from django.db import models
-from django.db import models
 from django.utils import timezone
 
 
@@ -8,6 +7,7 @@ class userdata(models.Model):
     username=models.CharField(max_length=255,null=True)
     email = models.CharField(max_length=255,null=True)
     password = models.CharField(max_length=255,null=True)
+    doctor_id = models.AutoField(primary_key=True,unique=True)
 
 class logs(models.Model):
     serial_number = models.CharField(max_length=50, unique=False)
