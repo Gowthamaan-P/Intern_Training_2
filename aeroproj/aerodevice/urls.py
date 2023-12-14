@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from aeroproj.asgi import application
 
 urlpatterns = [
     path("devicereg", views.devicereg, name="devicereg"), 
@@ -8,4 +9,6 @@ urlpatterns = [
     path("mylog", views.mylog, name="mylog"),  
     path("alldevices", views.alldevices, name="alldevices"), 
     path("otherlog",views.otherlog, name="otherlog"),
+    path("otherlog",views.otherlog, name="otherlog"),
+    path("websockets")
 ]

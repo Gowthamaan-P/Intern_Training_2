@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+</head>
+<body>
+
+<h1>Live Results:</h1>
+<div id="result-container"></div>
+
+<script>
+    const socket = new WebSocket('ws://localhost:8000/ws/testpath/');
+
+    socket.addEventListener('message', function (event) {
+        const data = JSON.parse(event.data);
+        const message = data.message;
+        const resultContainer = document.getElementById('result-container');
+        resultContainer.innerHTML = `<p>${message}</p>`;
+    });
+    socket.addEventListener('open', function (event) {
+        socket.send(JSON.stringify({ message: 'Hello, server!' }));
+    });
+</script>
+
+</body>
+</html>

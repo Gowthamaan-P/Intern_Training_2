@@ -6,9 +6,6 @@ rm -r /c/Users/itsve/Documents/####OG_PROJ/'Aerobiosys Intern'/AeroIntern/aeropr
 
 cp -r aeroproj m2c.sh /c/Users/itsve/Documents/####OG_PROJ/'Aerobiosys Intern'/AeroIntern
 
-
-#!/bin/bash
-
 BOLD=$(tput bold)
 NORMAL=$(tput sgr0)
 RED=$(tput setaf 1)
