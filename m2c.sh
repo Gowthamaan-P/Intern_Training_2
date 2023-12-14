@@ -131,12 +131,19 @@ git_message() {
             
             ;;
     esac
+
+    commit_message01=$(echo "${commit_message01}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+
     echo 
     echo -e "\e[1;33mCommit message02:\e[0m"
     echo 
     echo -n "$commit_type($commit_message01): "
     read commit_message02
+
+    commit_message02=$(echo "${commit_message02}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+
     commit_message="$commit_type($commit_message01): $commit_message02"
+
     echo
     echo -e "__________________________________________________________________________________________________________"
     echo -e "Your Commit Message: ${YELLOW}${BOLD}$commit_message${NORMAL}" 
