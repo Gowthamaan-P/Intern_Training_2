@@ -6,6 +6,7 @@ import DeviceInfo from "./components/DeviceInfo"
 import PatientInfo from './components/PatientInfo';
 import PatientHistory from './components/PatientHistory'
 import { Routes,Route } from 'react-router-dom';
+import MonitorScreen from './components/MonitorScreen';
 function App() {
   return (
     <div className="app" id='devices'>
@@ -13,6 +14,7 @@ function App() {
             <Route path='/' element={<Devices />} />
             <Route path='/Devices' element={<Devices />} />
             <Route path='/Monitoring' element={<Monitor />} />
+            <Route path='/MonitorScreen' element={<MonitorScreen />} />
             <Route path='/DeviceInfo' element={<DeviceInfo />} />
             <Route path='/PatientInfo' element={<PatientInfo />} />
             <Route path='/PatientHistory' element={<PatientHistory />} />
