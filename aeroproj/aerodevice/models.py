@@ -29,4 +29,5 @@ class usermapping(models.Model):
     status = models.BooleanField(default=True)
 
 
-
+class Post(models.Model):
+    pass

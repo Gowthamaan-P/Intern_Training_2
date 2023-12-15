@@ -1,18 +1,26 @@
-import json
-from channels.generic.websocket import AsyncWebsocketConsumer
+from djangochannelsrestframework import permissions
+from djangochannelsrestframework.generics import GenericAsyncAPIConsumer
+from djangochannelsrestframework.mixins import ListModelMixin
+from djangochannelsrestframework.observer import model_observer
 
-class test_consumer(AsyncWebsocketConsumer):
-    async def connect(self):
-        await self.accept()
-
-    async def disconnect(self, close_code):
-        pass
-
-    async def receive(self, text_data):
-        data = json.loads(text_data)
-        message = data['message']
+from .models import Post
+from .serializers import PostSerializer
 
 
-        await self.send(text_data=json.dumps({
-            'message': 'Response from server: {}'.format(message),
-        }))
+class PostConsumer(ListModelMixin, GenericAsyncAPIConsumer):
+
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permissions = (permissions.AllowAny,)
+
+    async def connect(self, **kwargs):
+        await self.model_change.subscribe()
+        await super().connect()
+
+    @model_observer(Post)
+    async def model_change(self, message, observer=None, **kwargs):
+        await self.send_json(message)
+
+    @model_change.serializer
+    def model_serialize(self, instance, action, **kwargs):
+        return dict(data=PostSerializer(instance=instance).data, action=action.value)

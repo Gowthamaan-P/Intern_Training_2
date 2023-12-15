@@ -10,5 +10,4 @@ urlpatterns = [
     path("alldevices", views.alldevices, name="alldevices"), 
     path("otherlog",views.otherlog, name="otherlog"),
     path("otherlog",views.otherlog, name="otherlog"),
-    path("websockets")
 ]
