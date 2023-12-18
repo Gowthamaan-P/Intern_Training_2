@@ -20,7 +20,7 @@ class usermappingSerializer(serializers.ModelSerializer):
     class Meta:
         model = usermapping
         fields = '__all__'
-
+'''
 class PostSerializer(serializers.ModelSerializer):
 
     author = serializers.SerializerMethodField()
@@ -35,3 +35,4 @@ class PostSerializer(serializers.ModelSerializer):
     
     def get_status(self, obj):
         return STATUS[obj.status][1]        
+'''

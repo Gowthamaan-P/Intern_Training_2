@@ -192,24 +192,45 @@ tr:nth-child(even) {
     <table>
         <thead>
             <tr>
+                <th>Device ID</th>
                 <th>Doctor ID</th>
                 <th>Patient ID</th>
                 <th>Patient Name</th>
                 <th>Age</th>
                 <th>Gender</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Blood</th>
+                <th>IBW</th>
+                <th>ITV</th>
+                <th>BMI</th>
+                <th>Admitted on</th>
+                <th>Reason</th>
+                <th>Potential</th>
                 <th>Contact</th>
                 <th>Emergency</th>
+
             </tr>
         </thead>
         <tbody>
             {% for pat_data in messages %}
                 <tr>
+                    <td>{{ pat_data.deviceid }}</td>
                     <td>{{ pat_data.doctorid }}</td>
                     <td>{{ pat_data.patientid }}</td>
                     <td>{{ pat_data.patient_name }}</td>
                     <td>{{ pat_data.patient_age }}</td>
                     <td>{{ pat_data.patient_gender }}</td>
-                    <td>{{ pat_data.contact }}</td>  
+                    <td>{{ pat_data.height }}</td>
+                    <td>{{ pat_data.weight }}</td>
+                    <td>{{ pat_data.blood }}</td>
+                    <td>{{ pat_data.ibw }}</td>
+                    <td>{{ pat_data.itv }}</td>
+                    <td>{{ pat_data.bmi }}</td>
+                    <td>{{ pat_data.admitted_date }}</td>
+                    <td>{{ pat_data.reason }}</td>
+                    <td>{{ pat_data.potential }}</td>
+                    <td>{{ pat_data.contact }}</td>
                     {% if pat_data.emergency == 'True'%}
                     <td><button class="custom-button1" value="text" type="submit">Emergency</button></td>
                     {% else %}

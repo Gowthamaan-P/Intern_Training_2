@@ -138,7 +138,7 @@ button:hover {
 
 .custom-button3{
     background-color: #007BFF;
-    width: 50px;
+    width: 150px;
     height: 5px;
     align-items: center;
     justify-content: center;
@@ -171,16 +171,6 @@ tr:nth-child(even) {
         <span style="color: #007BFF;">Aerobiosys Innovations</span>
     </div>
 
-    <div class="header">
-        <p><strong>User Id:</strong> {{ doctor_email }}</p>
-        {% if usertype == "Superuser" %}
-        <p><strong>User Group : <span style="color: red;">{{ usertype }}</span></strong></p>
-        {% else %}
-        <p><strong>User Group : <span style="color: blue;">{{ usertype }}</span></strong></p>
-        {% endif %}
-    </div>
-    <h3>All Devices</h3>
-
 
     <table>
         <thead>
@@ -189,34 +179,30 @@ tr:nth-child(even) {
                 <th>Device Name</th>
                 <th>Model</th>
                 <th>Serial Number</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Location</th>
-                <th>User ID</th>
-                <th>Last Logged User</th>
-                <th>Status</th>
+                <th>Lot Number</th>
+                <th>Model Number</th>
+                <th>MAC</th>
+                <th>Mfd Date</th>
+                <th>Battery Number</th>
+                <th>Battery Mfd Date</th>
+                <th>location</th>
             </tr>
         </thead>
         <tbody>
-            {% for device in messages %}
                 <tr>
-                    <td>{{ device.id }}</td>
-                    <td>{{ device.device_name }}<a href="{% url 'particulardevice' pk=device.id %}"><button class="custom-button3" value="text" type="submit">More</button></a></td>
-                    <td>{{ device.model }}</td>
-                    <td>{{ device.serial_number }}</td>
-                    <td>{{ device.login_date }}</td>
-                    <td>{{ device.login_time }}</td>
-                    
-                    <td>{{ device.location }}</td>
-                    <td>{{ device.assignuser_id }}</td>
-                    <td>{{ device.last_user }}</td>
-                    {% if device.status == 'Idle'%}
-                    <td><button class="custom-button1" value="text" type="submit">Idle</button></td>
-                    {% else %}
-                    <td><button class="custom-button2" value="text" type="submit">Active</button></td>
-                    {% endif %}
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.device_name }}</td>
+                    <td>{{ data.model }}</td>
+                    <td>{{ data.serial_number }}</td>
+                    <td>{{ data.lot_number }}</td>
+                    <td>{{ data.model_no }}</td>
+                    <td>{{ data.mac }}</td>
+                    <td>{{ data.mfd_date }}</td>
+                    <td>{{ data.battery_no }}</td>
+                    <td>{{ data.battery_mfd_date }}</td>
+                    <td>{{ data.location }}</td>
+
                 </tr>
-            {% endfor %}
         </tbody>
     </table>
 </body>

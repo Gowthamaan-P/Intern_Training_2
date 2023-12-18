@@ -9,15 +9,15 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/
 
 import os
 from django.core.asgi import get_asgi_application
-from channels.routing import ProtocolTypeRouter, URLRouter
-from channels.auth import AuthMiddlewareStack
-from aerodevice.routing import websocket_urlpatterns 
+# from channels.routing import ProtocolTypeRouter, URLRouter
+# from channels.auth import AuthMiddlewareStack
+# from aerodevice.routing import websocket_urlpatterns 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aeroproj.settings')
 
 application = get_asgi_application()
 
-application = ProtocolTypeRouter({
-    "http": application,
-    "websocket": URLRouter(websocket_urlpatterns),
-})
+# application = ProtocolTypeRouter({
+#     "http": application,
+#     "websocket": URLRouter(websocket_urlpatterns),
+# })

@@ -24,7 +24,36 @@
                     <input type="text" id="id" name="serial_number" required>
                     <label for="id">Serial Number </label>
                 </div>
-
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="lot_number" required>
+                    <label for="id">Lot Number </label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" value={{ model_no }} name="model_number" required>
+                    <label for="id">Model Number </label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" value={{ mac }} required>
+                    <label for="id">MAC </label>
+                </div>
+                <div>
+                    {% csrf_token %}
+                    <label for="id">Mfd Date </label>
+                    <input style="margin-top: 5px; margin-bottom: 5px;" type="date" id="id" name="mfd_date" required>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="battery_no" required>
+                    <label for="id">Battery Number </label>
+                </div>
+                <div>
+                    {% csrf_token %}
+                    <label for="id">Battery Mfd Date </label>
+                    <input style="margin-top: 5px; margin-bottom: 5px;" type="date" id="id" name="battery_mfd_date" required>
+                </div>
                 <div class="input-container">
                     {% csrf_token %}
                     <input type="text" id="id" name="location" required>

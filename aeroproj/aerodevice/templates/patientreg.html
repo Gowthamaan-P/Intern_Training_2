@@ -9,6 +9,8 @@
 <style>
     .input-container1 {
         margin-top: 15px;
+        margin-bottom: 15px;
+        
     }
 </style>
 </head>
@@ -20,9 +22,14 @@
 
                 <div class="input-container">
                     {% csrf_token %}
+                    <input type="text" value="{{ device_id }}" id="id" name="deviceid" required>
+                    <label for="id">Device Id</label>
+                </div>   
+                <div class="input-container">
+                    {% csrf_token %}
                     <input type="text" value="{{ email }}" id="id" name="doctorid" required>
                     <label for="id">Doctor Id</label>
-                </div>
+                </div>            
                 <div class="input-container">
                     {% csrf_token %}
                     <input type="text" value="{{ patient_id }}" id="id" name="patientid" required>
@@ -38,12 +45,6 @@
                     <input type="text" id="id" name="patient_age" required>
                     <label for="id">Patient Age</label>
                 </div>
-
-                <div class="input-container">
-                    {% csrf_token %}
-                    <input type="text" id="id" name="contact" required>
-                    <label for="id">Patient Contact</label>
-                </div>
                 <div class="input-container1">
                     {% csrf_token %}
                     <label>Patient Gender</label>
@@ -53,14 +54,65 @@
                         <option value="Female">Female</option>
                         <option value="Other">Other</option>
                     </select>
+                </div>
+                <div class="input-container1">
                     {% csrf_token %}
                     <label>Emergency Status:</label>
 
                     <select name="emergency">
-                        <option value="Yes">Emergency</option>
-                        <option value="No">Non-Emergency</option>
+                        <option value="True">Emergency</option>
+                        <option value="False">Non-Emergency</option>
                     </select>
-
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="height" required>
+                    <label for="id">Height</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="weight" required>
+                    <label for="id">Weight</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="blood" required>
+                    <label for="id">Blood Group</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="ibw" required>
+                    <label for="id">ibw</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="itv" required>
+                    <label for="id">itv</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="bmi" required>
+                    <label for="id">bmi</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="reason" required>
+                    <label for="id">Reason</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="potential" required>
+                    <label for="id">Potential</label>
+                </div>
+                <div class="input-container1">
+                    {% csrf_token %}
+                    <input type="datetime-local" id="id" name="admitted_date" required>
+                    <label for="id">Admitted Date</label>
+                </div>
+                <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" id="id" name="contact" required>
+                    <label for="id">Contact</label>
                 </div>
                 <table>
                     <td>

@@ -9,5 +9,5 @@ urlpatterns = [
     path("mylog", views.mylog, name="mylog"),  
     path("alldevices", views.alldevices, name="alldevices"), 
     path("otherlog",views.otherlog, name="otherlog"),
-    path("otherlog",views.otherlog, name="otherlog"),
+    path("particulardevice/<int:pk>/",views.particulardevice, name="particulardevice"),
 ]
