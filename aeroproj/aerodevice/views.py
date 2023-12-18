@@ -37,9 +37,10 @@ def devicereg(request):
         lot_number = request.POST.get('lot_number')
         mfd_date = request.POST.get('mfd_date')
         battery_no = request.POST.get('battery_no')
+        battery_mfd_date = request.POST.get('battery_mfd_date')
         location_data = request.POST.get('location')
         status_data = "Idle"
-        
+
 
         url = "http://127.0.0.1:8000/adddevices/"
 
@@ -55,7 +56,6 @@ def devicereg(request):
             'mfd_date': mfd_date,
             'battery_no': battery_no,
             'battery_mfd_date': battery_mfd_date,
-            'assignuser': "itsvenu22@gmail.com"
         }
 
         print("Request Data:", data)

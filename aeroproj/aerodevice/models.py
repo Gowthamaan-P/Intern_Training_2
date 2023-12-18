@@ -14,7 +14,7 @@ class devicedata(models.Model):
     battery_mfd_date = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=20,null=True)
     location = models.CharField(max_length=255,null=True)
-    assignuser = models.ForeignKey(userdata, on_delete=models.SET_NULL, null=True, blank=True)
+    assignuser = models.ForeignKey(userdata, on_delete=models.SET_NULL, null=True, blank=True, default = userdata.objects.get(email="itsvenu22@gmail.com" ))
     #assignstatus = models.CharField(max_length=255,null=False)
 
 class patientdata(models.Model):
