@@ -2,3 +2,48 @@ a{
     color: white;
     text-decoration: none;
 }
+Swiper{
+    width: min-content;
+}
+/* DeviceInfo.css */
+.device-info-container {
+    max-width: 600px; /* Adjust as needed */
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .m-section {
+    margin-bottom: 20px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-right: 20px;
+  }
+  
+  thead {
+    text-align: center;
+  }
+  
+  th, td {
+    font-size: 20px;
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:clip;
+  }
+  th{
+    font-size: 10px;
+  
+  }
+  /* Optional: Add styles for even and odd rows for better readability */
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+.card-content{
+  margin-right: 13px;
+  }

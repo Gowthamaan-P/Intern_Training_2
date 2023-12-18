@@ -61,7 +61,6 @@ const Monitor = () => {
                     <p id='date'>{card.admitted}</p>
                   </div>
                   <h5 id= 'emergency_status'>{card.emergency_status}</h5>
-                  <a href="/PatientHistory"><button id='case-history'>Case History</button></a>
                   <a href="/MonitorScreen"><button id="monitor">Monitor</button></a>
                 </div>
               ))

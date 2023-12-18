@@ -2,6 +2,7 @@
   font-family:Helvetica, sans-serif;
 }
 .monitor-cards{
+  width: 1200px;
   display: flex;
   flex-direction: column;
   min-height: 90vh;
@@ -111,13 +112,15 @@ p{
 
 #monitor{
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.2rem;
   background-color: #97F905;
   color: black;
+  font-size: large;
   border-radius: 20px ;
+  cursor: pointer;
 }
 a{
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: larger
+  font-size: larger;
 }

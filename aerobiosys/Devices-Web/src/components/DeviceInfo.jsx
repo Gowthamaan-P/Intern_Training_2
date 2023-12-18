@@ -1,18 +1,22 @@
+import './DeviceInfo.css'
 import React from "react";
 import { Link } from "react-router-dom";
-import './DeviceInfo.css'
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 import { useState } from 'react';
 const DeviceInfo = ({ deviceID, deviceStatus }) => {
   const [cards] = useState([
     {
+      manufacturer:'Aerobiosys Innovations',
       product:'DuoVent',
-      prod_id:'DV-V-01982C',
-      lot_no:'12345675',
-      mfd_date: '6-Dec-2023',
-      model_no:'DV789544D',
-      serial_no:'9875642354',
-      battery_no: '3544352543',
-      battery_mfd_date: 'Emergency Patient'
+      prod_id:'C8:C6:79:9A:04:F7',
+      lot_no:'DV-LL-2310006',
+      mfd_date: '6-Dec-2023 02:30PM',
+      model_no:'DV-LTS-01',
+      serial_no:'DV-A-2310001',
+      battery_no: 'DV-BAT231008',
+      battery_mfd_date: '1-Dec-2023 03:23PM'
     },
   ])
   return (
@@ -49,40 +53,42 @@ const DeviceInfo = ({ deviceID, deviceStatus }) => {
             <div className="cards">
             {
               cards.map((card, i) => (
-                <div key={i}> 
+                <div className="card-content" key={i}>  
+                  <div className="table-container">
                     <table>
-                        <legend>Manufacturer : Aerobiosys Innovations</legend>
-                        <br/>
+                      <thead>
+                          <th colSpan={2}>Manufacturer</th>
+                          <td>{card.manufacturer}</td>
+                      </thead>
+                      <tbody>
                         <tr>
-                            <th>Product:</th>
-                            <td>{card.product}</td>
-                            <th>Product ID:</th>
-                            <td>{card.pid}</td>
-                        </tr>
-                        <br/>
+                          <th>Product</th>
+                          <td>{card.product}</td>
+                          <th>Product ID</th>
+                          <td>{card.prod_id}</td>
+                          </tr>
                         <tr>
-                            <th>Lot Number:</th>
-                            <td>{card.lot_no}</td>
-                            <th>Manufactured Date:</th>
-                            <td>{card.mfd_date}</td>
+                          <th>Lot Number</th>
+                          <td>{card.lot_no}</td>
+                          <th>Manufactured Date</th>
+                          <td>{card.mfd_date}</td>
                         </tr>
-                        <br/>
                         <tr>
-                            <th>Model Number:</th>
-                            <td>{card.model_no}</td>
-                            <th>Battery Number:</th>
-                            <td>{card.battery_no}</td>
+                          <th>Model Number</th>
+                          <td>{card.model_no}</td>
+                          <th>Battery Number</th>
+                          <td>{card.battery_no}</td>
                         </tr>
-                        <br/>
                         <tr>
-                            <th>Serial Number</th>
-                            <td>{card.serial_no}</td>
-                            <th>Battery Manufacured Date:</th>
-                            <td>{card.battery_mfd_date}</td>
+                          <th>Serial Number</th>
+                          <td>{card.serial_no}</td>
+                          <th>Battery Manufactured Date</th>
+                          <td>{card.battery_mfd_date}</td>
                         </tr>
-                        <br/>
+                      </tbody>
                     </table>
-                </div>
+                  </div>
+              </div>  
               ))
             }
           </div>

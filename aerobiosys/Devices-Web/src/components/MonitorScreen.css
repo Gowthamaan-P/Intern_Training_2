@@ -1,3 +1,38 @@
-div{
+#monitor-div{
+    margin-bottom: 10%;
     background-color: black;
+    background-repeat: repeat;
+}
+#monitor-p{
+    color: white;
+}
+.back-button-monitor{
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px;
+}
+.title-m{
+  text-align: center;
+  color: black;
+}
+.header-line{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex: 0 0 calc(95%);
+  max-width: calc(95%);
+  width: 100%;
+  margin-top: 10px;
+  margin-left: 5px;
+  background: greenyellow;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: .3s;
+  border: 2px solid transparent;
+  border-right: 2px transparent;
 }

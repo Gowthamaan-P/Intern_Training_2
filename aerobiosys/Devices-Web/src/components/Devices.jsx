@@ -74,7 +74,7 @@ function Devices() {
                     <h4 className={getStatusClass(card.status)} id='status'>{card.status}</h4>
                     <p id='timestamp'>{card.timestamp}</p>
                   </div>
-                  <Link to={{ pathname: "/Monitoring", state: { id: card.id, status: card.status } }}>
+                  <Link to={{ pathname: "/Monitoring", id: card.id, status: card.status }}>
                     <img className="ventilator-image" src={card.image} alt="ventilatorImage" />
                   </Link>
                   </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import './Monitor.css'
+import './PatientHistory.css'
 import { useState } from 'react';
 const PatientHistory = ({ deviceID, deviceStatus }) => {
   const [cards] = useState([
@@ -12,16 +12,23 @@ const PatientHistory = ({ deviceID, deviceStatus }) => {
       blood_group: 'B+ve',
       contact:'6985473251',
       admitted: '5-Dec-2023 10:45 am',
-      room_bed:'Room 15A - 45',
+      room_bed:'15A - 45',
       ibw:'59.88kgs',
       itv:'341-455ml',
       bmi:'0.00',
       reason:'Injury',
       potential:'Injury'
     }
-  ])
+  ]);
+  const table1Data = cards.slice(0, 5);
   return (
     <section className="monitor">
+      <div className='navbar'>
+          <div className="brand">
+            <img id='logo' src={process.env.PUBLIC_URL + 'aerobiosys.gif'} alt="Logo"></img>
+            <h2 id='title'>Aerobiosys Innovations</h2>
+          </div>
+        </div>
     <h1>Patient History</h1>
     <div className="monitor-cards">
       <div className="card-container">
@@ -35,22 +42,78 @@ const PatientHistory = ({ deviceID, deviceStatus }) => {
             <div className="cards">
             {
               cards.map((card, i) => (
-                <div key={i} className="monitor-card"> 
+                <div key={i}> 
                 <div className="card-content">
-                    <p id='id'>{card.emergency_status}</p>
-                    <p id='age'>{card.age}</p>
-                    <p id='date'>{card.gender}</p>
-                    <p id='date'>{card.height}</p>
-                    <p id='date'>{card.weight}</p>
-                    <p id='date'>{card.blood_group}</p>
-                    <p id='date'>{card.contact}</p>
-                    <p id='date'>{card.admitted}</p>
-                    <p id='date'>{card.room_bed}</p>
-                    <p id='date'>{card.ibw}</p>
-                    <p id='date'>{card.itv}</p>
-                    <p id='date'>{card.bmi}</p>
-                    <p id='date'>{card.reason}</p>
-                    <p id='date'>{card.potential}</p>
+                <div className="tables-container">
+                  <div className="table-container">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Emergency Status</th>
+                          <th>Age</th>
+                          <th>Gender</th>
+                          <th>Height</th>
+                          <th>Weight</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {table1Data.map((item, index) => (
+                          <tr key={index}>
+                            <td>{item.emergency_status}</td>
+                            <td>{item.age}</td>
+                            <td>{item.gender}</td>
+                            <td>{item.height}</td>
+                            <td>{item.weight}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                
+                  <div className="table-container">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Blood Group</th>
+                          <th>Contact</th>
+                          <th>Admitted on</th>
+                          <th>Room/Bed</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                            <td>{card.blood_group}</td>
+                            <td>{card.contact}</td>
+                            <td>{card.admitted}</td>
+                            <td>{card.room_bed}</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div className="table-container">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>IBW</th>
+                          <th>ITV</th>
+                          <th>BMI</th>
+                          <th>Reason</th>
+                          <th>Potential</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                            <td>{card.ibw}</td>
+                            <td>{card.itv}</td>
+                            <td>{card.bmi}</td>
+                            <td>{card.reason}</td>
+                            <td>{card.potential}</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
                   </div>
                 </div>
               ))

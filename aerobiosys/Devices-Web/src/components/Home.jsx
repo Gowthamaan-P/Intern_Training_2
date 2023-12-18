@@ -1,56 +1,30 @@
-import React from 'react'
-import './Home.css'
-import Particles from 'react-particles';
-import { tsParticles } from 'tsparticles-engine';
+import React, { useEffect } from 'react';
+import './Home.css';
 const Home = () => {
+  useEffect(() => {
+    const text = document.querySelector('.second-text');
+
+    const textLoad = () => {
+      setTimeout(() => {
+        text.textContent = ' Aerobiosys Innovations';
+      }, 0);
+      setTimeout(() => {
+        text.textContent = " Manufacturing India's Best Medical ICU Ventilators";
+      }, 4500);
+      setTimeout(() => {
+        text.textContent = ' changing the way you receive healthcare';
+      }, 9000);
+	};
+    textLoad();
+	setInterval(textLoad,13500)
+  }, []);
+
   return (
-    <div className='Home'>
-    <Particles
-    params={{
-	    "particles": {
-	        "number": {
-	            "value": 100,
-	            "density": {
-	                "enable": true,
-	                "value_area": 1500
-	            }
-	        },
-	        "line_linked": {
-	            "enable": true,
-	            "opacity": 1
-	        },
-	        "move": {
-	            "direction": "right",
-	            "speed": 0.05
-	        },
-	        "size": {
-	            "value": 1
-	        },
-	        "opacity": {
-	            "anim": {
-	                "enable": true,
-	                "speed": 1,
-	                "opacity_min": 0.05
-	            }
-	        }
-	    },
-	    "interactivity": {
-	        "events": {
-	            "onclick": {
-	                "enable": true,
-	                "mode": "push"
-	            }
-	        },
-	        "modes": {
-	            "push": {
-	                "particles_nb": 1
-	            }
-	        }
-	    },
-	    "retina_detect": true
-	}} />
-        </div>
-  )
-}
+    <div className="container-home">
+      <span className="text first-text">Welcome, We are</span>
+      <span className="text second-text"></span>
+    </div>
+  );
+};
 
 export default Home;

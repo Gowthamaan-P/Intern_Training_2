@@ -2,3 +2,49 @@
     color: white;
     text-decoration: none;
 }
+.monitor-cards{
+  width: 1200px;
+  min-height: 80vh;
+}
+.table-container {
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex: 100%;
+    width: 100%;
+    background: #fff;
+    border-radius: 20px;
+    margin-right: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    transition: .3s;
+    border: 2px solid transparent;
+    border-right: 2px transparent;
+  }
+  
+  table {
+    width: 1035px;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: center;
+  }
+  td{
+    font-size: 20px;
+  }
+  
+  th {
+    font-size: 25px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: lighter;
+    line-height: 15px;
+    text-align: center;
+    color: #1d39c4;
+  }
+ 
+  /* Add more styles as needed */
+  
