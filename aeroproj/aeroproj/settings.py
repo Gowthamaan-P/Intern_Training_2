@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'aerouser',
     'ventilator',
     'rest_framework',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,15 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'noreplyaerobiosys@gmail.com'
 EMAIL_HOST_PASSWORD = 'zgjnvhcndhwuqctp'
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+# Redis is often used as a channel layer backend due to its speed, reliability, and 
+# support for pub/sub mechanisms.

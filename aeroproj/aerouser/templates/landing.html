@@ -135,6 +135,7 @@ button:hover {
     </style>
 </head>
 <body>
+
     <a href="http://127.0.0.1:8000/logout"><button class="logout-btn"> Logout</button></a>
     <div class="welcome">
         <span>Welcome to</span>
@@ -156,5 +157,100 @@ button:hover {
             </div>
         </div>
     </div>
+</body>  
+</html> 
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Devices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-family: "Helvetica Neue Light", sans-serif;
+            color: #333;
+        }
+
+        .device-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px;
+        }
+
+        .device-list-item {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 12px;
+            border-bottom: 1px solid #dddddd; 
+            background-color: #ffffff;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .device-list-item div {
+            flex: 1;
+        }
+
+        .allocate-button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .allocate-button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            color: #555;
+            margin: 5px 0;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Devices</h1>
+    <ul class="device-list">
+        {% for device in device_logs %}
+            <li class="device-list-item">
+                <div>
+                    <strong>Serial number:</strong> {{ device.serial_number }} <br>
+                    <strong>Model:</strong> {{ device.model }}<br>
+                    <strong>Status:</strong> {{ device.status }}<br>
+                    <strong>Location:</strong> {{ device.location }} <br>
+                </div>
+                {% if device.status != 'Allocated' %}
+                    <a href="{% url 'patient' serial_number1=device.serial_number %}" class="allocate-button">Register</a>
+                {% else %}
+                    <p>This device is already allocated</p>
+                    <a href="{% url 'unallocate_device' serial_number2=device.serial_number %}" class="allocate-button">Unallocate</a>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li class="device-list-item">No devices found</li>
+        {% endfor %}
+    </ul>   
 </body>
-</html>
+</html> -->

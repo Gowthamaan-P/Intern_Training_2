@@ -9,41 +9,48 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from .models import userdata, PasswordResetToken,logs
 from django.utils import timezone
-from ventilator.models import Ventilator 
+from ventilator.models import Ventilator,Patient,device_logs
 from django.http import HttpResponseServerError
 from django.db.models import Max
-
+from django.shortcuts import redirect
 
 def login(request):
     if request.method == 'POST':
-        field1_data = request.POST.get('email')   
+        field1_data = request.POST.get('email')
         field2_data = request.POST.get('password')
         field3_data = request.POST.get('serial_number')
-      
+
         if not userdata.objects.filter(email__iexact=field1_data).exists():
             error_message = "Email doesn't exist in the database."
-            return render(request, "login.html", {'error_message': error_message})
-        
-        if not Ventilator.objects.filter(serial_number=field3_data).exists():
-            error_message = "Serial number doesn't exist in the device records."
             return render(request, "login.html", {'error_message': error_message})
 
         user = userdata.objects.get(email=field1_data)
         stored_password = user.password
         name1 = user.username
-          
+
         if not check_password(field2_data, stored_password):
             error_message = "Wrong password"
             return render(request, "login.html", {'error_message': error_message})
         else:
+           
+            if field3_data:
+                if Ventilator.objects.filter(serial_number=field3_data).exists():
+                    new_entry = logs(email=field1_data, serial_number=field3_data, log_in=timezone.now())
+                    new_entry.save()
+                else:
+                    field3_data = None  
 
-            new_entry = logs(email=field1_data, serial_number=field3_data, log_in=timezone.now())
-            new_entry.save() 
             request.session['serial_number'] = field3_data
             request.session['email'] = field1_data
-            return render(request, "landing.html", {'error_message': name1, 'error_message1': field3_data})
+            
+
+            if field3_data:
+                return render(request, "landing.html", {'error_message': name1, 'error_message1': field3_data})
+            else:
+                return redirect('user_landing')  
     else:
         return render(request, "login.html")
+
 
 
 def logout(request):
@@ -191,3 +198,46 @@ def password_reset(request, token):
             return render(request, 'reset_password.html', {'error_message': 'Password does not match'})
 
     return render(request, "reset_password.html")
+
+# if user logins without specifying the serial number
+def user_landing(request):
+     if request.method == 'GET':
+        devices = Ventilator.objects.all()  
+        return render(request, "user_landing.html", {'devices':devices })
+     else:
+        return render(request, "login.html") 
+     
+def user_homepage(request,serial_number):
+    request.session['serial_number3'] = serial_number
+    return render(request,"user_homepage.html",{'device':serial_number})
+
+def device_info(request):     #device data
+    serial_number = request.session.get('serial_number3')
+    ventilator = get_object_or_404(Ventilator, serial_number=serial_number)
+    return render(request, "device_data.html", {'ventilator': ventilator})
+
+   
+
+def patient_info(request):
+
+    serial_number = request.session.get('serial_number3')
+    try:
+        devices = device_logs.objects.filter(serial_number=serial_number)
+
+        if not devices.exists():
+            return render(request, "patient_data.html", {'error_message': 'No device found for this serial number.'})
+        
+        patients_with_device = []
+        for device in devices:
+            number = device.assigned_to_patient_id
+            patients = Patient.objects.filter(patient_id=number)
+            patients_with_device.extend(patients)
+
+        if not patients_with_device:
+            return render(request, "patient_data.html", {'error_message': 'No patient associated with this device.'})
+
+        return render(request, "patient_data.html", {'patients_with_device': patients_with_device})
+
+    except ObjectDoesNotExist:
+        return render(request, "patient_data.html", {'error_message': 'Device log not found for this serial number.'})
+     

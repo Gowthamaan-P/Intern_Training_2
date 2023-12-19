@@ -65,16 +65,10 @@
             <li class="device-list-item">
                 <div>
                     <strong>Serial number:</strong> {{ device.serial_number }} <br>
-                    <strong>Location:</strong> {{ device.location }} <br>
                     <strong>Model:</strong> {{ device.model }}<br>
                     <strong>Status:</strong> {{ device.status }}
                 </div>
-                {% if device.status != 'Allocated' %}
-                    <a href="{% url 'patient' serial_number1=device.serial_number %}" class="allocate-button">Register</a>
-                {% else %}
-                    <p>This device is already allocated</p>
-                    <a href="{% url 'unallocate_device' serial_number2=device.serial_number %}" class="allocate-button">Unallocate</a>
-                {% endif %}
+                <a href="{% url 'user_homepage' serial_number=device.serial_number %}" class="allocate-button">View</a>                        
             </li>
         {% empty %}
             <li class="device-list-item">No devices found</li>

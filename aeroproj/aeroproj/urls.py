@@ -16,10 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+websocket_urlpatterns = []
+
+from sockets.routers import websocket_urlpatterns 
+
+
 
 urlpatterns = [
     path("", include("aerouser.urls")),
      path("", include("ventilator.urls")),
     path("admin/", admin.site.urls),
-    path("", include('API.urls'))
+    path("", include('API.urls')),
+    # path("", include('sockets.routers'))  
+    path("", include(websocket_urlpatterns))
 ]
