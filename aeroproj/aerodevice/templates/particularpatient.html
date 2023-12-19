@@ -82,10 +82,10 @@
     margin-top: 5px;
 }
 
-        .header {
+.header {
             text-align: center;
             color: #1f1f1f;
-            font-size: 36px;
+            font-size: 20px;
             font-weight: 300;
             margin-top: 20px;
         }
@@ -122,25 +122,6 @@ button:hover {
                 width: calc(33.33% - 40px);
             }
         }
-a{
-    text-decoration: none;
-}
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align:left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
 .custom-button1{
     background-color: red;
     width: 105px;
@@ -155,16 +136,9 @@ tr:nth-child(even) {
     justify-content: center;
 }
 
-.header {
-            text-align: center;
-            color: #1f1f1f;
-            font-size: 20px;
-            font-weight: 300;
-            margin-top: 20px;
-        }
 .custom-button3{
     background-color: #007BFF;
-    width: 50px;
+    width: 150px;
     height: 5px;
     align-items: center;
     justify-content: center;
@@ -175,6 +149,30 @@ tr:nth-child(even) {
     align-items: center;
     justify-content: center;
 }
+.tr{
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+}
+a{
+    text-decoration: none;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
     </style>
 </head>
 <body>
@@ -184,60 +182,61 @@ tr:nth-child(even) {
         <span style="color: #007BFF;">Aerobiosys Innovations</span>
     </div>
 
-    <div class="header">
-        <p><strong>User Id:</strong> {{ doctor_email }}</p>
-        {% if usertype == "Superuser" %}
-        <p><strong>User Group : <span style="color: red;">{{ usertype }}</span></strong></p>
-        {% else %}
-        <p><strong>User Group : <span style="color: blue;">{{ usertype }}</span></strong></p>
-        {% endif %}
-    </div>
-    <h3>All Devices</h3>
-
 
     <table>
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Device ID</th>
                 <th>Doctor ID</th>
                 <th>Patient ID</th>
                 <th>Patient Name</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Admitted on</th>
-                <th>Emergency Status</th>
-                <th>More Info?</th>
-                <th>Delete?</th>
-
+                <th>Patient Age</th>
+                <th>Patient Gender</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Blood</th>
+                <th>IBW</th>
+                <th>ITV</th>
+                <th>BMI</th>
+                <th>Admitted Date</th>
+                <th>Reason</th>
+                <th>Potential</th>
+                <th>Contact</th>
+                <th>Emergency</th>
             </tr>
         </thead>
         <tbody>
-            {% for pat_data in messages %}
                 <tr>
-                    <td>{{ pat_data.deviceid }}</td>
-                    <td>{{ pat_data.doctorid }}</td>
-                    <td>{{ pat_data.patientid }}</td>
-                    <td>{{ pat_data.patient_name }}</td>
-                    <td>{{ pat_data.patient_age }}</td>
-                    <td>{{ pat_data.patient_gender }}</td>
-                    <td>{{ pat_data.admitted_date }}</td>
-                    {% if pat_data.emergency == 'True'%}
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.deviceid }}</td>
+                    <td>{{ data.doctorid }}</td>
+                    <td>{{ data.patientid }}</td>
+                    <td>{{ data.patient_name }}</td>
+                    <td>{{ data.patient_age }}</td>
+                    <td>{{ data.patient_gender }}</td>
+                    <td>{{ data.height }}</td>
+                    <td>{{ data.weight }}</td>
+                    <td>{{ data.blood }}</td>
+                    <td>{{ data.ibw }}</td>
+                    <td>{{ data.itv }}</td>
+                    <td>{{ data.bmi }}</td>
+                    <td>{{ data.admitted_date }}</td>
+                    <td>{{ data.reason }}</td>
+                    <td>{{ data.potential }}</td>
+                    <td>{{ data.contact }}</td>
+                    {% if data.emergency == 'True'%}
                     <td><button class="custom-button1" value="text" type="submit">Emergency</button></td>
-                    <alert></alert>
                     {% else %}
                     <td><button class="custom-button2" value="text" type="submit">Normal</button></td>
                     {% endif %}
-                    <td><a href="{% url 'particularpatient' pk=pat_data.id %}"><button class="custom-button4" value="text" type="submit">More</button></a></td>
-                    <td><a href="{% url 'particularpatient_delete' pk=pat_data.id %}"><button onclick="fn_del()" class="custom-button4" value="text" type="submit">Delete</button></a></td>
-            {% endfor %}
+                </tr>
         </tbody>
     </table>
-
-    <script>
-        function fn_del() 
-            {
-                alert("Deleted!!!");
-            }
-    </script>
+    <table class="tr">
+        <tr>
+            <td><a href="{% url 'particularpatient_delete' pk=data.id %}"><button class="custom-button4" value="text" type="submit">Edit</button></a></td>
+        </tr>
+    </table>
 </body>
 </html>

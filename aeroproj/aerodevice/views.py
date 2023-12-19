@@ -23,6 +23,48 @@ def rand_model():
     model = ''.join([i for i in m])
     return model
 
+def alldevices(request):
+    email_data = request.session.get('doctor_email')
+    sno_data = request.session.get('devicelog')
+    usertype = request.session.get('usertype')
+    mes = []
+    assign_status = "Assign Me"
+    devices_data = devicedata.objects.values()
+    for i in devices_data:
+        if i['assignuser_id'] != None:
+            temp = userdata.objects.filter(id=i['assignuser_id']).values()
+            assign_status = [j['email'] for j in temp]
+
+            device_id = devicedata.objects.filter(serial_number=i['serial_number']).values()
+            user_data = usermapping.objects.filter(device=device_id[0]['id']).values().last()
+
+            i['status'] =  'Idle' if user_data['status'] == False else 'Active'
+            i['login_date'] = user_data['login_time'].strftime('%Y-%m-%d')
+            i['login_time'] = user_data['login_time'].strftime('%H:%M:%S') if user_data and user_data['login_time'] else None
+            keet = userdata.objects.filter(id = user_data['user_id']).values()
+            i['last_user'] = keet[0]['email']
+        mes.append(i)
+        #print(i)
+
+
+    print(user_data['login_time'].strftime('%Y-%m-%d'))
+
+    context = {
+        'messages': mes,
+        'doctor_email': email_data,
+        'usertype': usertype,
+    }
+
+    return render(request, "alldevices.html", context)
+
+def particulardevice(request,pk):
+    data = get_object_or_404(devicedata, pk=pk)
+    context = {
+        "data": data
+    }
+    return render(request, "particulardevice.html", context)
+
+
 def devicereg(request):
 
     #email_data = request.session.get('email')
@@ -69,6 +111,49 @@ def devicereg(request):
         
     else:
         return render(request, "devicereg.html", { 'mac': mac, 'model_no': model_no}) 
+
+def mylog(request):
+    email_data = request.session.get('doctor_email')
+    sno_data = request.session.get('devicelog')
+
+    devices_data = devicedata.objects.values()
+    user_data = usermapping.objects.values()
+
+    usertype = request.session.get('usertype')
+    print(usertype)
+    current_user_id = userdata.objects.filter(email=email_data).values()
+    temp = usermapping.objects.filter(user=current_user_id[0]['id']).values()
+
+    mes = [i for i in temp]
+
+    context = {
+        'messages': mes[::-1],
+        'doctor_email': email_data,
+        'device_name': sno_data,
+        'usertype': usertype,
+    }
+    
+    return render(request, "mylog.html",context)
+
+def otherlog(request):
+    email_data = request.session.get('doctor_email')
+    sno_data = request.session.get('devicelog')
+    usertype = request.session.get('usertype')
+    
+    temp = usermapping.objects.all().values()
+
+    print('........................................................')
+    mes = [i for i in temp]
+    for i in mes:
+        t = userdata.objects.filter(id = i['user_id']).values('email')
+        i['user_id'] = t[0]['email']
+    context = {
+        'messages': mes[::-1],
+        'doctor_email': email_data,
+        'device_name': sno_data,
+        'usertype': usertype,
+    }
+    return render(request, "otherlog.html",context)
 
 
 def patientreg(request):
@@ -137,57 +222,13 @@ def patientreg(request):
         return render(request, "patientreg.html", {'email': email_data, 'patient_id':patient_id, 'device_id': device_data}) 
 
 
-def mylog(request):
-    email_data = request.session.get('doctor_email')
-    sno_data = request.session.get('devicelog')
-
-    devices_data = devicedata.objects.values()
-    user_data = usermapping.objects.values()
-
-    usertype = request.session.get('usertype')
-    print(usertype)
-    current_user_id = userdata.objects.filter(email=email_data).values()
-    temp = usermapping.objects.filter(user=current_user_id[0]['id']).values()
-
-    mes = [i for i in temp]
-
-    context = {
-        'messages': mes[::-1],
-        'doctor_email': email_data,
-        'device_name': sno_data,
-        'usertype': usertype,
-    }
-    
-    return render(request, "mylog.html",context)
-
-def otherlog(request):
-    email_data = request.session.get('doctor_email')
-    sno_data = request.session.get('devicelog')
-    usertype = request.session.get('usertype')
-    
-    temp = usermapping.objects.all().values()
-
-    print('........................................................')
-    mes = [i for i in temp]
-    for i in mes:
-        t = userdata.objects.filter(id = i['user_id']).values('email')
-        i['user_id'] = t[0]['email']
-    context = {
-        'messages': mes[::-1],
-        'doctor_email': email_data,
-        'device_name': sno_data,
-        'usertype': usertype,
-    }
-    return render(request, "otherlog.html",context)
-
-
 def patients(request):
     email_data = request.session.get('doctor_email')
     usertype = request.session.get('usertype')
-
+    sno_data = request.session.get('devicelog')
     print(usertype)
     if usertype != "Superuser":
-        objects = patientdata.objects.filter(doctorid=email_data).values()
+        objects = patientdata.objects.filter(deviceid=sno_data).values()
     else:
         objects = patientdata.objects.values()
     mes = []
@@ -202,44 +243,14 @@ def patients(request):
 
     return render(request, "patients.html", context)
 
-
-def alldevices(request):
-    email_data = request.session.get('doctor_email')
-    sno_data = request.session.get('devicelog')
-    usertype = request.session.get('usertype')
-    mes = []
-    assign_status = "Assign Me"
-    devices_data = devicedata.objects.values()
-    for i in devices_data:
-        if i['assignuser_id'] != None:
-            temp = userdata.objects.filter(id=i['assignuser_id']).values()
-            assign_status = [j['email'] for j in temp]
-
-            device_id = devicedata.objects.filter(serial_number=i['serial_number']).values()
-            user_data = usermapping.objects.filter(device=device_id[0]['id']).values().last()
-
-            i['status'] =  'Idle' if user_data['status'] == False else 'Active'
-            i['login_date'] = user_data['login_time'].strftime('%Y-%m-%d')
-            i['login_time'] = user_data['login_time'].strftime('%H:%M:%S') if user_data and user_data['login_time'] else None
-            keet = userdata.objects.filter(id = user_data['user_id']).values()
-            i['last_user'] = keet[0]['email']
-        mes.append(i)
-        #print(i)
-
-
-    print(user_data['login_time'].strftime('%Y-%m-%d'))
-
-    context = {
-        'messages': mes,
-        'doctor_email': email_data,
-        'usertype': usertype,
-    }
-
-    return render(request, "alldevices.html", context)
-
-def particulardevice(request,pk):
-    data = get_object_or_404(devicedata, pk=pk)
+def particularpatient(request,pk):
+    data = get_object_or_404(patientdata, pk=pk)
     context = {
         "data": data
     }
-    return render(request, "particulardevice.html", context)
+    return render(request, "particularpatient.html", context)
+
+def particularpatient_delete(request,pk):
+    data = get_object_or_404(patientdata, pk=pk)
+    data.delete()
+    return redirect('patients')

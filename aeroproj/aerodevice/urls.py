@@ -10,4 +10,6 @@ urlpatterns = [
     path("alldevices", views.alldevices, name="alldevices"), 
     path("otherlog",views.otherlog, name="otherlog"),
     path("particulardevice/<int:pk>/",views.particulardevice, name="particulardevice"),
+    path("particularpatient/<int:pk>/",views.particularpatient, name="particularpatient"),
+    path("particularpatient_delete/<int:pk>/",views.particularpatient_delete, name="particularpatient_delete"),
 ]
