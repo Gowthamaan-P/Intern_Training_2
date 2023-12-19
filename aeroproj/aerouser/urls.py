@@ -13,4 +13,5 @@ urlpatterns = [
     path("user_homepage/<str:serial_number>", views.user_homepage, name='user_homepage'),
     path("device_details", views.device_info, name='device_details'),
     path("patient_details", views.patient_info, name='patient_details'),
+    path("monitor", views.monitors, name='monitor'),
 ]

@@ -13,6 +13,7 @@ from ventilator.models import Ventilator,Patient,device_logs
 from django.http import HttpResponseServerError
 from django.db.models import Max
 from django.shortcuts import redirect
+from django.core.exceptions import ObjectDoesNotExist
 
 def login(request):
     if request.method == 'POST':
@@ -241,3 +242,27 @@ def patient_info(request):
     except ObjectDoesNotExist:
         return render(request, "patient_data.html", {'error_message': 'Device log not found for this serial number.'})
      
+
+
+# monitoring section
+def monitors(request):
+    serial_number = request.session.get('serial_number3')
+    try:
+        devices = device_logs.objects.filter(serial_number=serial_number)
+
+        if not devices.exists():
+            return render(request, "monitor.html", {'error_message': 'No device found for this serial number.'})
+        
+        patients_with_device = []
+        for device in devices:
+            number = device.assigned_to_patient_id
+            patients = Patient.objects.filter(patient_id=number)
+            patients_with_device.extend(patients)
+
+        if not patients_with_device:
+            return render(request, "monitor.html", {'error_message': 'No patient associated with this device.'})
+
+        return render(request, "monitor.html", {'patients_with_device': patients_with_device})
+
+    except ObjectDoesNotExist:
+        return render(request, "monitor.html", {'error_message': 'Device log not found for this serial number.'})
