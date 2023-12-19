@@ -1,4 +1,3 @@
-import { clear } from 'console';
 import express from 'express'
 import http from 'http'
 import * as socketio from 'socket.io'

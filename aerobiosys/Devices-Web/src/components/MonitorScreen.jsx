@@ -18,30 +18,54 @@ function MonitorScreen() {
       <div className="header-line">
         <h2 className='title-m'>DuoVent</h2>
       </div>
-      <div className="graph">
-      <p id='monitor-p'>Pressure</p>
-      <LineChart width={1000} height={200} data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
-      <XAxis dataKey="name" />
-      <Tooltip />
-      <CartesianGrid stroke="#f5f5f5" />
-      <Line type="monotone" dataKey="x" stroke="#ff7300" yAxisId={0} />
-      </LineChart>
+      <div className="monitor-content">
+          <div className="graph">
+          <p id='monitor-p'>Pressure</p>
+          <LineChart width={1000} height={200} data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+          <XAxis dataKey="name" />
+          <Tooltip />
+          <CartesianGrid stroke="#f5f5f5" />
+          <Line type="monotone" dataKey="x" stroke="#ff7300" yAxisId={0} />
+          </LineChart>
 
-      <p id='monitor-p'>Flow</p>
-      <LineChart width={1000} height={200} data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
-      <XAxis dataKey="name" />
-      <Tooltip />
-      <CartesianGrid stroke="#f5f5f5" />
-      <Line type="monotone" dataKey="x" stroke="#45ff45" yAxisId={1} />
-      </LineChart>
-      
-      <p id='monitor-p'>Volume</p>
-      <LineChart width={1000} height={200} data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
-      <XAxis dataKey="name" />
-      <Tooltip />
-      <CartesianGrid stroke="#f5f5f5" />
-      <Line type="monotone" dataKey="x" stroke="#ff7300" yAxisId={0} />
-      </LineChart>
+          <p id='monitor-p'>Flow</p>
+          <LineChart width={1000} height={200} data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+          <XAxis dataKey="name" />
+          <Tooltip />
+          <CartesianGrid stroke="#f5f5f5" />
+          <Line type="monotone" dataKey="x" stroke="#45ff45" yAxisId={1} />
+          </LineChart>
+          
+          <p id='monitor-p'>Volume</p>
+          <LineChart width={1000} height={200} data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+          <XAxis dataKey="name" />
+          <Tooltip />
+          <CartesianGrid stroke="#f5f5f5" />
+          <Line type="monotone" dataKey="x" stroke="#ff7300" yAxisId={2} />
+          </LineChart>
+          </div>
+
+          <div className="info-boxes">
+              <div className="info-box">
+                <p id="info">PIP</p>
+                <h2 id='info'>{Math.floor(data[0].x * 10)}</h2>
+              </div>
+
+              <div className="info-box">
+                <p id="info">PEEP</p>
+                <h2 id='info'>{Math.floor(data[1].y * 10)}</h2>
+              </div>
+
+              <div className="info-box">
+                <p id="info">VTI</p>
+                <h2 id='info'>{Math.floor(data[2].x * 10)}</h2>
+              </div>
+
+              <div className="info-box">
+                <p id="info">IBW</p>
+                <h2 id='info'>{Math.floor(data[3].y * 10)}</h2>
+              </div>
+        </div>
       </div>
     </div>
   )

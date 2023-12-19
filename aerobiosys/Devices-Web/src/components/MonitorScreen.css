@@ -36,3 +36,33 @@
   border: 2px solid transparent;
   border-right: 2px transparent;
 }
+/* YourCSSFile.css */
+
+.monitor-content {
+  display: flex;
+  width: 100%;
+}
+
+.graph {
+  width: 60%; /* Adjust as needed */
+  padding: 20px; /* Add padding as needed */
+}
+
+.info-boxes {
+  width: 40%; /* Adjust as needed */
+  display: flex;
+  flex-wrap:calc(40%-40px);
+  gap: 10px;
+}
+
+.info-box {
+  width: 45%; /* Adjust as needed */
+  height: 120px;
+  margin: 10px; /* Adjust margin for spacing */
+  padding: 20px;
+  color: white;
+  border: 1px solid #ddd; /* Add border for better visibility */
+}
+#info{
+  color: white;
+}
