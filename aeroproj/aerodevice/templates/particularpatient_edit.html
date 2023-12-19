@@ -22,27 +22,27 @@
 
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" value="{{ device_id }}" id="id" name="deviceid" required>
+                    <input type="text" value="{{ data.deviceid }}" id="id" name="deviceid" required>
                     <label for="id">Device Id</label>
                 </div>   
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" value="{{ email }}" id="id" name="doctorid" required>
+                    <input type="text" value="{{ data.doctorid }}" id="id" name="doctorid" required>
                     <label for="id">Doctor Id</label>
                 </div>            
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" value="{{ patient_id }}" id="id" name="patientid" required>
+                    <input type="text" value="{{ data.patientid }}" id="id" name="patientid" required>
                     <label for="id">Patient Id</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="patient_name" required>
+                    <input type="text" value="{{ data.patient_name }}" id="id" name="patient_name" required>
                     <label for="id">Patient Name</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="patient_age" required>
+                    <input type="text" value="{{ data.patient_age }}" id="id" name="patient_age" required>
                     <label for="id">Patient Age</label>
                 </div>
                 <div class="input-container1">
@@ -50,9 +50,19 @@
                     <label>Patient Gender</label>
 
                     <select name="patient_gender">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
+                        {% if data.patient_gender == 'Male'%}
+                            <option value="Male" selected>Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        {% elif data.patient_gender == 'Female' %}
+                            <option value="Male" >Male</option>
+                            <option value="Female" selected>Female</option>
+                            <option value="Other">Other</option>
+                        {% else %}
+                            <option value="Male" >Male</option>
+                            <option value="Female" >Female</option>
+                            <option value="Other" selected>Other</option>
+                        {% endif %}
                     </select>
                 </div>
                 <div class="input-container1">
@@ -60,58 +70,63 @@
                     <label>Emergency Status:</label>
 
                     <select name="emergency">
-                        <option value="True">Emergency</option>
+                        {% if data.emergency == 'True'%}
+                        <option value="True" selected>Emergency</option>
                         <option value="False">Non-Emergency</option>
+                        {% else %}
+                        <option value="True">Emergency</option>
+                        <option value="False" selected>Non-Emergency</option>
+                        {% endif %}
                     </select>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="height" required>
+                    <input type="text" value="{{ data.height }}" id="id" name="height" required>
                     <label for="id">Height</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="weight" required>
+                    <input type="text" value="{{ data.weight }}" id="id" name="weight" required>
                     <label for="id">Weight</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="blood" required>
+                    <input type="text" value="{{ data.blood }}" id="id" name="blood" required>
                     <label for="id">Blood Group</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="ibw" required>
+                    <input type="text" value="{{ data.ibw }}" id="id" name="ibw" required>
                     <label for="id">ibw</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="itv" required>
+                    <input type="text" value="{{ data.itv }}" id="id" name="itv" required>
                     <label for="id">itv</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="bmi" required>
+                    <input type="text" value="{{ data.bmi }}" id="id" name="bmi" required>
                     <label for="id">bmi</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="reason" required>
+                    <input type="text" value="{{ data.reason }}" id="id" name="reason" required>
                     <label for="id">Reason</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="potential" required>
+                    <input type="text" value="{{ data.potential }}" id="id" name="potential" required>
                     <label for="id">Potential</label>
                 </div>
                 <div class="input-container1">
                     {% csrf_token %}
-                    <input type="datetime-local" id="id" name="admitted_date" required>
+                    <input type="datetime-local" value="{{ data.admitted_date|date:'Y-m-d\TH:i' }}" id="id" name="admitted_date" required>
                     <label for="id">Admitted Date</label>
                 </div>
                 <div class="input-container">
                     {% csrf_token %}
-                    <input type="text" id="id" name="contact" required>
+                    <input type="text" value="{{ data.contact }}" id="id" name="contact" required>
                     <label for="id">Contact</label>
                 </div>
                 <table>

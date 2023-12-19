@@ -12,4 +12,5 @@ urlpatterns = [
     path("particulardevice/<int:pk>/",views.particulardevice, name="particulardevice"),
     path("particularpatient/<int:pk>/",views.particularpatient, name="particularpatient"),
     path("particularpatient_delete/<int:pk>/",views.particularpatient_delete, name="particularpatient_delete"),
+    path("particularpatient_edit/<int:pk>/",views.particularpatient_edit, name="particularpatient_edit"),
 ]

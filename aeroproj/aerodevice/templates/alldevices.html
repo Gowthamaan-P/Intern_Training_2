@@ -143,7 +143,12 @@ button:hover {
     align-items: center;
     justify-content: center;
 }
-
+.custom-button4{
+    background-color: 007BFF ;
+    width: 105px;
+    align-items: center;
+    justify-content: center;
+}
 a{
     text-decoration: none;
 }
@@ -195,13 +200,14 @@ tr:nth-child(even) {
                 <th>User ID</th>
                 <th>Last Logged User</th>
                 <th>Status</th>
+                <th>More Info</th>
             </tr>
         </thead>
         <tbody>
             {% for device in messages %}
                 <tr>
                     <td>{{ device.id }}</td>
-                    <td>{{ device.device_name }}<a href="{% url 'particulardevice' pk=device.id %}"><button class="custom-button3" value="text" type="submit">More</button></a></td>
+                    <td>{{ device.device_name }}</td>
                     <td>{{ device.model }}</td>
                     <td>{{ device.serial_number }}</td>
                     <td>{{ device.login_date }}</td>
@@ -214,8 +220,8 @@ tr:nth-child(even) {
                     <td><button class="custom-button1" value="text" type="submit">Idle</button></td>
                     {% else %}
                     <td><button class="custom-button2" value="text" type="submit">Active</button></td>
-                    <td></td>
                     {% endif %}
+                    <td><a href="{% url 'particulardevice' pk=device.id %}"><button class="custom-button4" value="text" type="submit">More</button></a></td>
                 </tr>
             {% endfor %}
         </tbody>
